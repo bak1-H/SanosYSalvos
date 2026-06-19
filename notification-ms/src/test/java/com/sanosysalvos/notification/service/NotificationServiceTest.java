@@ -16,8 +16,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -82,5 +87,76 @@ class NotificationServiceTest {
         Notificacion despachada = captor.getValue();
         assertThat(despachada.getDescripcion()).contains("Luna");
         assertThat(despachada.getEstado_notificacion()).isEqualTo("ENVIADA");
+    }
+
+    @Test
+    @DisplayName("tipo_evento nulo usa la fábrica por defecto (provider.obtener(null))")
+    void tipoEventoNuloUsaFabricaPorDefecto() {
+        CoincidenciaEventDTO e = evento();
+        e.setTipo_evento(null);
+        when(factoryProvider.obtener(null)).thenReturn(new CoincidenciaNotificacionFactory());
+        when(repository.save(any(Notificacion.class))).thenAnswer(inv -> inv.getArgument(0));
+
+        service.procesarNotificacion(e);
+
+        verify(factoryProvider, times(1)).obtener(null);
+        verify(dispatcher, times(1)).despacharATodos(any(Notificacion.class));
+    }
+
+    @Test
+    @DisplayName("tipo_evento inválido cae al valor por defecto sin lanzar excepción")
+    void tipoEventoInvalidoCaeAlPorDefecto() {
+        CoincidenciaEventDTO e = evento();
+        e.setTipo_evento("NO_EXISTE");
+        when(factoryProvider.obtener(null)).thenReturn(new CoincidenciaNotificacionFactory());
+        when(repository.save(any(Notificacion.class))).thenAnswer(inv -> inv.getArgument(0));
+
+        service.procesarNotificacion(e);
+
+        verify(factoryProvider, times(1)).obtener(null);
+    }
+
+    @Test
+    @DisplayName("recuperar guarda una notificación FALLIDA con el mensaje de error")
+    void recuperarGuardaNotificacionFallida() {
+        when(repository.save(any(Notificacion.class))).thenAnswer(inv -> inv.getArgument(0));
+
+        service.recuperar(new RuntimeException("BD caída"), evento());
+
+        ArgumentCaptor<Notificacion> captor = ArgumentCaptor.forClass(Notificacion.class);
+        verify(repository).save(captor.capture());
+        Notificacion guardada = captor.getValue();
+        assertThat(guardada.getEstado_notificacion()).isEqualTo("FALLIDA");
+        assertThat(guardada.getMensajeError()).isEqualTo("BD caída");
+        verify(dispatcher, never()).despacharATodos(any());
+    }
+
+    @Test
+    @DisplayName("obtenerTodas devuelve la lista del repositorio")
+    void obtenerTodasDevuelveLista() {
+        Notificacion n = new Notificacion();
+        when(repository.findAll()).thenReturn(List.of(n));
+
+        assertThat(service.obtenerTodas()).containsExactly(n);
+    }
+
+    @Test
+    @DisplayName("obtenerPorId devuelve la notificación cuando existe")
+    void obtenerPorIdExistente() {
+        Notificacion n = new Notificacion();
+        n.setId_notificacion(3L);
+        when(repository.findById(3L)).thenReturn(Optional.of(n));
+
+        assertThat(service.obtenerPorId(3L).getId_notificacion()).isEqualTo(3L);
+    }
+
+    @Test
+    @DisplayName("obtenerPorId lanza excepción cuando no existe")
+    void obtenerPorIdInexistente() {
+        when(repository.findById(99L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> service.obtenerPorId(99L))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("no encontrada");
     }
 }
