@@ -1,5 +1,6 @@
 package cl.sanosysalvos.reporte.controller;
 
+import cl.sanosysalvos.reporte.dto.ReporteNearbyRequestDTO;
 import cl.sanosysalvos.reporte.dto.ReporteRequestDTO;
 import cl.sanosysalvos.reporte.dto.ReporteResponseDTO;
 import cl.sanosysalvos.reporte.service.ReporteService;
@@ -20,7 +21,7 @@ public class ReporteController {
         this.reporteService = reporteService;
     }
 
-    @PostMapping
+    @PostMapping("/crear")
     public ResponseEntity<ReporteResponseDTO> crear(@Valid @RequestBody ReporteRequestDTO dto) {
         ReporteResponseDTO nuevoReporte = reporteService.guardarReporte(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoReporte);
@@ -30,6 +31,12 @@ public class ReporteController {
     public ResponseEntity<List<ReporteResponseDTO>> listar() {
         List<ReporteResponseDTO> lista = reporteService.obtenerTodos();
         return ResponseEntity.ok(lista);
+    }
+
+    @PostMapping
+    public ResponseEntity<List<ReporteResponseDTO>> obtenerCercanos(@RequestBody ReporteNearbyRequestDTO request) {
+        List<ReporteResponseDTO> cercanos = reporteService.obtenerCercanos(request.getLatitud(), request.getLongitud());
+        return ResponseEntity.ok(cercanos);
     }
 
     @GetMapping("/{id}")

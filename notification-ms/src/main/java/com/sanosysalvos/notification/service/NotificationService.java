@@ -36,6 +36,7 @@ public class NotificationService {
         log.error("Fallo tras 3 intentos: {}", e.getMessage());
         Notificacion errorLog = new Notificacion();
         errorLog.setId_coincidencia(evento.getId_coincidencia());
+        errorLog.setId_reporte_encontrado(evento.getId_reporte_encontrado());
         errorLog.setId_usuario(evento.getId_usuario_reporte_perdida());
         errorLog.setId_usuario_reporte_perdida(evento.getId_usuario_reporte_perdida());
         errorLog.setNombre_mascota(evento.getNombre_mascota());
@@ -83,5 +84,9 @@ public class NotificationService {
 
     public Notificacion obtenerPorId(Long id) {
         return repository.findById(id).orElseThrow(() -> new RuntimeException("Notificación no encontrada"));
+    }
+
+    public List<Notificacion> obtenerPorUsuario(String idUsuario) {
+        return repository.findByIdUsuarioReportePerdida(idUsuario);
     }
 }

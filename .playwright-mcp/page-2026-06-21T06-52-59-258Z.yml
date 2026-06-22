@@ -1,0 +1,76 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - button [ref=e5]:
+      - img [ref=e6]
+    - generic [ref=e8]: Nuevo reporte
+  - generic [ref=e11]:
+    - generic [ref=e12]:
+      - img [ref=e14]
+      - generic [ref=e16]:
+        - heading "Reportar mascota" [level=1] [ref=e17]
+        - paragraph [ref=e18]: Completa la información para publicar el aviso
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - generic [ref=e22]: Tipo de reporte
+          - combobox [ref=e23]:
+            - option "Selecciona..." [disabled]
+            - option "Mascota perdida"
+            - option "Mascota avistada" [selected]
+        - generic [ref=e24]:
+          - generic [ref=e25]: Tipo de mascota
+          - combobox [ref=e26]:
+            - option "Selecciona..." [disabled]
+            - option "Perro" [selected]
+            - option "Gato"
+            - option "Otro"
+      - generic [ref=e27]:
+        - generic [ref=e28]:
+          - generic [ref=e29]: Nombre de la mascota
+          - 'textbox "Ej: Luna, Max, Desconocido" [ref=e30]': TestMatchB
+        - generic [ref=e31]:
+          - generic [ref=e32]: Raza
+          - 'textbox "Ej: Labrador, Mestizo, Persa" [ref=e33]': Mestizo
+      - generic [ref=e34]:
+        - generic [ref=e35]:
+          - generic [ref=e36]: Color
+          - 'textbox "Ej: Negro con manchas blancas" [ref=e37]': Negro
+        - generic [ref=e38]:
+          - generic [ref=e39]: Tamaño
+          - combobox [ref=e40]:
+            - option "Selecciona..." [disabled]
+            - option "Pequeño"
+            - option "Mediano" [selected]
+            - option "Grande"
+      - generic [ref=e41]:
+        - generic [ref=e42]: Sexo
+        - combobox [ref=e43]:
+          - option "Selecciona..." [disabled]
+          - option "Macho" [selected]
+          - option "Hembra"
+      - generic [ref=e44]:
+        - generic [ref=e45]: Dirección donde fue visto/perdido
+        - 'textbox "Ej: Av. Los Libertadores 7200, Cerrillos, Santiago" [ref=e46]': Av. Providencia 1000, Providencia, Santiago
+      - generic [ref=e47]:
+        - generic [ref=e48]: Mové el pin para ajustar la ubicación exacta
+        - generic [ref=e50]:
+          - button [ref=e51] [cursor=pointer]
+          - link "Leaflet" [ref=e54] [cursor=pointer]:
+            - /url: https://leafletjs.com
+            - img [ref=e55]
+            - text: Leaflet
+        - button "Dirección confirmada" [active] [ref=e76]:
+          - img [ref=e60]
+          - text: Dirección confirmada
+      - generic [ref=e62]:
+        - generic [ref=e63]: Descripción
+        - textbox "Describe características distintivas, collar, comportamiento, contexto de la desaparición..." [ref=e64]: Reporte de prueba B, deberia matchear con A
+      - generic [ref=e65]:
+        - generic [ref=e66]: Foto de la mascota (opcional)
+        - generic [ref=e67] [cursor=pointer]:
+          - img [ref=e69]
+          - generic [ref=e71]:
+            - paragraph [ref=e72]: Arrastra una foto aquí
+            - paragraph [ref=e73]: o haz clic para seleccionar
+          - generic [ref=e74]: JPG, PNG, WEBP
+      - button "Publicar reporte" [ref=e75]

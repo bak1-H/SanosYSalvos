@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>WebSocketNotificationService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">notification-ms</a> &gt; <a href="index.source.html" class="el_package">com.sanosysalvos.notification.service</a> &gt; <span class="el_source">WebSocketNotificationService.java</span></div><h1>WebSocketNotificationService.java</h1><pre class="source lang-java linenums">package com.sanosysalvos.notification.service;
+
+import com.sanosysalvos.notification.model.Notificacion;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@Service
+<span class="fc" id="L13">@Slf4j</span>
+<span class="fc" id="L14">@RequiredArgsConstructor</span>
+public class WebSocketNotificationService {
+
+    private final SimpMessagingTemplate messagingTemplate;
+
+    /**
+     * Envía una notificación a un usuario específico via WebSocket
+     * @param idUsuario - ID del usuario que reportó la mascota perdida
+     * @param notificacion - Objeto con los detalles de la notificación
+     */
+    public void notificarUsuario(String idUsuario, Notificacion notificacion) {
+        try {
+            // Construir mensaje personalizado
+<span class="fc" id="L27">            Map&lt;String, Object&gt; mensaje = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L28">            mensaje.put(&quot;titulo&quot;, &quot;¡Coincidencia encontrada!&quot;);</span>
+<span class="fc" id="L29">            mensaje.put(&quot;mensaje&quot;, &quot;Se ha encontrado una coincidencia para tu mascota&quot;);</span>
+<span class="fc" id="L30">            mensaje.put(&quot;direccion&quot;, notificacion.getDireccion());</span>
+<span class="fc" id="L31">            mensaje.put(&quot;fecha_coincidencia&quot;, notificacion.getFecha_coincidencia());</span>
+<span class="fc" id="L32">            mensaje.put(&quot;email_usuario&quot;, notificacion.getEmail_usuario());</span>
+<span class="fc" id="L33">            mensaje.put(&quot;nombre_mascota&quot;, notificacion.getNombre_mascota());</span>
+<span class="fc" id="L34">            mensaje.put(&quot;descripcion&quot;, notificacion.getDescripcion());</span>
+<span class="fc" id="L35">            mensaje.put(&quot;id_coincidencia&quot;, notificacion.getId_coincidencia());</span>
+<span class="fc" id="L36">            mensaje.put(&quot;id_usuario_reporte_perdida&quot;, notificacion.getId_usuario_reporte_perdida());</span>
+
+            // Enviar al usuario específico
+            // El usuario debe estar conectado a /topic/notifications/{idUsuario}
+<span class="fc" id="L40">            String destino = &quot;/topic/notifications/&quot; + idUsuario;</span>
+<span class="fc" id="L41">            messagingTemplate.convertAndSend(destino, mensaje);</span>
+            
+<span class="fc" id="L43">            log.info(&quot;Notificación enviada a usuario {} vía WebSocket&quot;, idUsuario);</span>
+<span class="fc" id="L44">        } catch (Exception e) {</span>
+<span class="fc" id="L45">            log.error(&quot;Error al enviar notificación vía WebSocket al usuario {}: {}&quot;, idUsuario, e.getMessage());</span>
+<span class="fc" id="L46">        }</span>
+<span class="fc" id="L47">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

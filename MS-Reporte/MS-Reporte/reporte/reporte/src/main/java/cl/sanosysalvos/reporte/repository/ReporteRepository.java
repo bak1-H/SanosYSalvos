@@ -14,6 +14,6 @@ public interface ReporteRepository extends JpaRepository<ReporteModel, Long> {
     @Query("SELECT new cl.sanosysalvos.reporte.dto.ReporteResponseDTO(r.idReporte, r.raza, r.tipoReporte) " +
            "FROM ReporteModel r " +
            "WHERE r.idUsuario = :idUsuario")
-    List<ReporteResponseDTO> findReportesByUsuarioId(@Param("idUsuario") Integer idUsuario);
+    List<ReporteResponseDTO> findReportesByUsuarioId(@Param("idUsuario") String idUsuario);
 
 }

@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class ReporteResponseDTO {
     
     private Long id; 
-    private Integer idUsuario;
+    private String idUsuario;
     
     private TipoReporte tipoReporte; 
     

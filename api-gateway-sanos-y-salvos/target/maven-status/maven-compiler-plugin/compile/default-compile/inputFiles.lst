@@ -1,0 +1,4 @@
+/home/danielbeltran/new-sanys/SanosYSalvos/api-gateway-sanos-y-salvos/src/main/java/cl/sys/discoveryservice/apigateawaysys2/ApiGateawaySys2Application.java
+/home/danielbeltran/new-sanys/SanosYSalvos/api-gateway-sanos-y-salvos/src/main/java/cl/sys/discoveryservice/apigateawaysys2/config/GatewayConfig.java
+/home/danielbeltran/new-sanys/SanosYSalvos/api-gateway-sanos-y-salvos/src/main/java/cl/sys/discoveryservice/apigateawaysys2/config/JwtRoleConverter.java
+/home/danielbeltran/new-sanys/SanosYSalvos/api-gateway-sanos-y-salvos/src/main/java/cl/sys/discoveryservice/apigateawaysys2/config/SecurityConfig.java

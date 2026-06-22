@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NotificationController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">notification-ms</a> &gt; <a href="index.source.html" class="el_package">com.sanosysalvos.notification.controller</a> &gt; <span class="el_source">NotificationController.java</span></div><h1>NotificationController.java</h1><pre class="source lang-java linenums">package com.sanosysalvos.notification.controller;
+
+import com.sanosysalvos.notification.dto.CoincidenciaEventDTO;
+import com.sanosysalvos.notification.model.Notificacion;
+import com.sanosysalvos.notification.service.NotificationService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/api/notifications&quot;)
+<span class="fc" id="L14">@RequiredArgsConstructor</span>
+@Tag(name = &quot;Notificaciones&quot;, description = &quot;Recepción y consulta de notificaciones de coincidencias&quot;)
+public class NotificationController {
+
+    private final NotificationService service;
+
+    @PostMapping(&quot;/match&quot;)
+    @Operation(summary = &quot;Procesar un evento de coincidencia&quot;,
+            description = &quot;Crea la notificación según el tipo de evento (Factory Method) y la entrega &quot;
+                    + &quot;por todos los canales disponibles (Strategy). El campo 'tipo_evento' puede ser &quot;
+                    + &quot;COINCIDENCIA_ENCONTRADA o MASCOTA_ENCONTRADA; si se omite, se usa el valor por defecto.&quot;)
+    public String enviar(@RequestBody CoincidenciaEventDTO evento) {
+<span class="fc" id="L26">        service.procesarNotificacion(evento);</span>
+<span class="fc" id="L27">        return &quot;Evento recibido correctamente&quot;;</span>
+    }
+
+    @GetMapping
+    @Operation(summary = &quot;Listar todas las notificaciones&quot;)
+    public List&lt;Notificacion&gt; obtenerTodas() {
+<span class="fc" id="L33">        return service.obtenerTodas();</span>
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+    @Operation(summary = &quot;Obtener una notificación por su ID&quot;)
+    public Notificacion obtenerPorId(@PathVariable Long id) {
+<span class="fc" id="L39">        return service.obtenerPorId(id);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

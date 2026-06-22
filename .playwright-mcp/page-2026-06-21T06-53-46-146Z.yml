@@ -1,0 +1,31 @@
+- generic [ref=e26]:
+  - banner [ref=e27]:
+    - generic [ref=e28]: Sanos y Salvos
+    - generic [ref=e29]:
+      - generic [ref=e30]: 1 perdidos
+      - generic [ref=e32]: 1 avistados
+  - main [ref=e34]:
+    - generic [ref=e70]:
+      - generic [ref=e71]:
+        - heading "Alertas" [level=2] [ref=e72]
+        - generic [ref=e73]: 1 nueva
+      - button "Coincidencia Hace -1 días Se encontró una posible coincidencia con TestMatchB. Ver reporte coincidente →" [ref=e74] [cursor=pointer]:
+        - generic [ref=e77]:
+          - generic [ref=e78]:
+            - generic [ref=e79]: Coincidencia
+            - generic [ref=e80]: Hace -1 días
+          - paragraph [ref=e81]: Se encontró una posible coincidencia con TestMatchB.
+          - generic [ref=e82]: Ver reporte coincidente →
+  - navigation [ref=e53]:
+    - generic [ref=e54]:
+      - button "Perfil" [ref=e55]:
+        - img [ref=e56]
+        - generic [ref=e58]: Perfil
+      - button "Reportes" [ref=e59]:
+        - img [ref=e60]
+        - generic [ref=e62]: Reportes
+      - button "1 Alertas" [active] [ref=e63]:
+        - generic [ref=e64]:
+          - img [ref=e65]
+          - generic [ref=e67]: "1"
+        - generic [ref=e68]: Alertas

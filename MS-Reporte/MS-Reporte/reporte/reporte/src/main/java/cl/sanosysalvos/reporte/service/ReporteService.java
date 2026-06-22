@@ -8,6 +8,7 @@ public interface ReporteService {
     
     ReporteResponseDTO guardarReporte(ReporteRequestDTO dto);
     List<ReporteResponseDTO> obtenerTodos();
+    List<ReporteResponseDTO> obtenerCercanos(Double latitud, Double longitud);
     ReporteResponseDTO obtenerPorId(Long id);
     ReporteResponseDTO actualizarReporte(Long id, ReporteRequestDTO dto);
     void eliminarReporte(Long id);

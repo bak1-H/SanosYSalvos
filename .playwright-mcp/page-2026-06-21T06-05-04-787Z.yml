@@ -1,0 +1,47 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]: Sanos y Salvos
+    - generic [ref=e6]:
+      - generic [ref=e7]: 1 perdidos
+      - generic [ref=e9]: 1 avistados
+  - main [ref=e11]:
+    - generic [ref=e31]:
+      - generic:
+        - generic:
+          - button [ref=e32] [cursor=pointer]
+          - button [ref=e34] [cursor=pointer]
+          - button [active] [ref=e36] [cursor=pointer]
+        - generic [ref=e49]:
+          - generic [ref=e52]:
+            - generic [ref=e54]: Mascota Avistada
+            - paragraph [ref=e55]: Michi Playwright
+            - paragraph [ref=e56]: GATO · Comun
+            - paragraph [ref=e57]: Hembra · Mediano · Gris
+            - paragraph [ref=e58]: Reporte de prueba creado con Playwright, sin foto adjunta.
+            - paragraph [ref=e59]: Avenida Diez de Julio Humachuco 100, Santiago
+            - paragraph [ref=e60]: "Reportado por: Playwright Tester"
+            - button "Ver detalle →" [ref=e61]
+          - button "Close popup" [ref=e63] [cursor=pointer]: ×
+      - generic [ref=e38]:
+        - link "Leaflet" [ref=e39] [cursor=pointer]:
+          - /url: https://leafletjs.com
+          - img [ref=e40]
+          - text: Leaflet
+        - text: "| ©"
+        - link "OpenStreetMap" [ref=e44] [cursor=pointer]:
+          - /url: https://www.openstreetmap.org/copyright
+    - generic [ref=e45]: 2 reportes en 1 km a la redonda
+    - button "Crear reporte" [ref=e46]:
+      - img [ref=e47]
+      - text: Crear reporte
+  - navigation [ref=e16]:
+    - generic [ref=e17]:
+      - button "Perfil" [ref=e18]:
+        - img [ref=e19]
+        - generic [ref=e21]: Perfil
+      - button "Reportes" [ref=e22]:
+        - img [ref=e23]
+        - generic [ref=e25]: Reportes
+      - button "Alertas" [ref=e26]:
+        - img [ref=e28]
+        - generic [ref=e30]: Alertas

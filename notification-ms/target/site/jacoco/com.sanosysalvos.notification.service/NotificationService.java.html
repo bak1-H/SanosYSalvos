@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NotificationService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">notification-ms</a> &gt; <a href="index.source.html" class="el_package">com.sanosysalvos.notification.service</a> &gt; <span class="el_source">NotificationService.java</span></div><h1>NotificationService.java</h1><pre class="source lang-java linenums">package com.sanosysalvos.notification.service;
+
+import com.sanosysalvos.notification.dto.CoincidenciaEventDTO;
+import com.sanosysalvos.notification.model.Notificacion;
+import com.sanosysalvos.notification.repository.NotificacionRepository;
+import com.sanosysalvos.notification.service.factory.NotificacionFactory;
+import com.sanosysalvos.notification.service.factory.NotificacionFactoryProvider;
+import com.sanosysalvos.notification.service.factory.TipoEvento;
+import com.sanosysalvos.notification.service.strategy.NotificacionDispatcher;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Recover;
+import org.springframework.retry.annotation.Retryable;
+import org.springframework.stereotype.Service;
+import java.util.List;
+
+@Service
+<span class="fc" id="L20">@Slf4j</span>
+<span class="fc" id="L21">@RequiredArgsConstructor</span>
+public class NotificationService {
+
+    private final NotificacionRepository repository;
+    private final NotificacionFactoryProvider factoryProvider;
+    private final NotificacionDispatcher dispatcher;
+
+    @RabbitListener(queues = &quot;${app.rabbitmq.queue}&quot;)
+    public void escucharNotificacionesDesdeRabbitMQ(CoincidenciaEventDTO evento) {
+<span class="nc" id="L30">        log.info(&quot;Evento recibido de RabbitMQ: {}&quot;, evento);</span>
+<span class="nc" id="L31">        procesarNotificacion(evento);</span>
+<span class="nc" id="L32">    }</span>
+
+    @Recover
+    public void recuperar(Exception e, CoincidenciaEventDTO evento) {
+<span class="fc" id="L36">        log.error(&quot;Fallo tras 3 intentos: {}&quot;, e.getMessage());</span>
+<span class="fc" id="L37">        Notificacion errorLog = new Notificacion();</span>
+<span class="fc" id="L38">        errorLog.setId_coincidencia(evento.getId_coincidencia());</span>
+<span class="fc" id="L39">        errorLog.setId_usuario(evento.getId_usuario_reporte_perdida());</span>
+<span class="fc" id="L40">        errorLog.setId_usuario_reporte_perdida(evento.getId_usuario_reporte_perdida());</span>
+<span class="fc" id="L41">        errorLog.setNombre_mascota(evento.getNombre_mascota());</span>
+<span class="fc" id="L42">        errorLog.setDireccion(evento.getDireccion());</span>
+<span class="fc" id="L43">        errorLog.setFecha_coincidencia(evento.getFecha_coincidencia());</span>
+<span class="fc" id="L44">        errorLog.setEmail_usuario(evento.getEmail_usuario());</span>
+<span class="fc" id="L45">        errorLog.setEstado_notificacion(&quot;FALLIDA&quot;);</span>
+<span class="fc" id="L46">        errorLog.setMensajeError(e.getMessage());</span>
+<span class="fc" id="L47">        repository.save(errorLog);</span>
+<span class="fc" id="L48">    }</span>
+
+    @Retryable(retryFor = Exception.class, maxAttempts = 3, backoff = @Backoff(delay = 2000))
+    public void procesarNotificacion(CoincidenciaEventDTO evento) {
+<span class="fc" id="L52">        log.info(&quot;Procesando coincidencia ID: {}&quot;, evento.getId_coincidencia());</span>
+
+        // FACTORY METHOD: la fábrica adecuada construye la notificación según el tipo de evento.
+<span class="fc" id="L55">        NotificacionFactory factory = factoryProvider.obtener(resolverTipoEvento(evento));</span>
+<span class="fc" id="L56">        Notificacion notificacion = factory.crear(evento);</span>
+
+<span class="fc" id="L58">        Notificacion notificacionGuardada = repository.save(notificacion);</span>
+<span class="fc" id="L59">        log.info(&quot;Notificación guardada exitosamente para el usuario {}&quot;,</span>
+<span class="fc" id="L60">                evento.getId_usuario_reporte_perdida());</span>
+
+        // STRATEGY: el dispatcher entrega la notificación por cada canal disponible.
+<span class="fc" id="L63">        dispatcher.despacharATodos(notificacionGuardada);</span>
+<span class="fc" id="L64">    }</span>
+
+    /** Traduce el tipo de evento del DTO a {@link TipoEvento}; null o inválido → por defecto. */
+    private TipoEvento resolverTipoEvento(CoincidenciaEventDTO evento) {
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        if (evento.getTipo_evento() == null) {</span>
+<span class="fc" id="L69">            return null;</span>
+        }
+        try {
+<span class="fc" id="L72">            return TipoEvento.valueOf(evento.getTipo_evento().trim().toUpperCase());</span>
+<span class="fc" id="L73">        } catch (IllegalArgumentException ex) {</span>
+<span class="fc" id="L74">            log.warn(&quot;Tipo de evento desconocido '{}', se usará el valor por defecto&quot;,</span>
+<span class="fc" id="L75">                    evento.getTipo_evento());</span>
+<span class="fc" id="L76">            return null;</span>
+        }
+    }
+
+    public List&lt;Notificacion&gt; obtenerTodas() {
+<span class="fc" id="L81">        return repository.findAll();</span>
+    }
+
+    public Notificacion obtenerPorId(Long id) {
+<span class="fc" id="L85">        return repository.findById(id).orElseThrow(() -&gt; new RuntimeException(&quot;Notificación no encontrada&quot;));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

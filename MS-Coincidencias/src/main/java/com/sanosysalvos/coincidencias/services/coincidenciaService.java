@@ -64,7 +64,7 @@ public class coincidenciaService {
                 coincidenciaModel guardada = repoCoincidencia.save(coincidencia);
 
                 // Determinar idUsuario del reporte perdido (evitar lambda que modifica variable externa)
-                Long idUsuarioReportePerdida = null;
+                String idUsuarioReportePerdida = null;
                 Long idReportePerdida = guardada.getIdReportePerdida();
                 if (idReportePerdida != null) {
                     idUsuarioReportePerdida = repoReportes.findById(idReportePerdida)

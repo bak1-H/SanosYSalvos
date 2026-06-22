@@ -35,7 +35,7 @@ class WebSocketNotificationServiceTest {
 
     private Notificacion notificacion() {
         Notificacion n = new Notificacion();
-        n.setId_usuario_reporte_perdida(5L);
+        n.setId_usuario_reporte_perdida("5");
         n.setId_coincidencia(1L);
         n.setNombre_mascota("Luna");
         n.setDescripcion("Coincidencia para Luna");
@@ -47,7 +47,7 @@ class WebSocketNotificationServiceTest {
     @Test
     @DisplayName("notificarUsuario envía al topic del usuario con el contenido esperado")
     void notificarUsuarioEnviaAlDestinoCorrecto() {
-        webSocketService.notificarUsuario(5L, notificacion());
+        webSocketService.notificarUsuario("5", notificacion());
 
         ArgumentCaptor<String> destino = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<Object> payload = ArgumentCaptor.forClass(Object.class);
@@ -59,7 +59,7 @@ class WebSocketNotificationServiceTest {
         Map<String, Object> mensaje = (Map<String, Object>) payload.getValue();
         assertThat(mensaje)
                 .containsEntry("nombre_mascota", "Luna")
-                .containsEntry("id_usuario_reporte_perdida", 5L)
+                .containsEntry("id_usuario_reporte_perdida", "5")
                 .containsKey("titulo");
     }
 
@@ -69,7 +69,7 @@ class WebSocketNotificationServiceTest {
         doThrow(new RuntimeException("fallo de transporte"))
                 .when(messagingTemplate).convertAndSend(any(String.class), any(Object.class));
 
-        assertThatCode(() -> webSocketService.notificarUsuario(5L, notificacion()))
+        assertThatCode(() -> webSocketService.notificarUsuario("5", notificacion()))
                 .doesNotThrowAnyException();
 
         verify(messagingTemplate, times(1)).convertAndSend(eq("/topic/notifications/5"), any(Object.class));

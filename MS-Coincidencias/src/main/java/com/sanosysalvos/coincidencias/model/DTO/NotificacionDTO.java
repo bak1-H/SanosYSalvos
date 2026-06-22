@@ -34,7 +34,7 @@ public class NotificacionDTO {
     private String coordenadas;
 
     @JsonProperty("id_usuario_reporte_perdida")
-    private Long idUsuarioReportePerdida;
+    private String idUsuarioReportePerdida;
 
     @JsonProperty("email_usuario")
     private String emailUsuario;

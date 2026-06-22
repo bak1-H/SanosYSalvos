@@ -1,0 +1,9 @@
+[     104ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/react-dom_client.js?v=8d75b2e0:14337
+[    5561ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8083/ws-notifications/info?t=1782020780010:0
+[    5596ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ http://localhost:8081/api/notifications/usuario/fad5d0a9-d5aa-4ea1-a9bc-53785b7d1e2c:0
+[    5612ms] [ERROR] Failed to load resource: the server responded with a status of 401 () @ http://localhost:8081/api/notifications/usuario/fad5d0a9-d5aa-4ea1-a9bc-53785b7d1e2c:0
+[   10566ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8083/ws-notifications/info?t=1782020785018:0
+[   15568ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8083/ws-notifications/info?t=1782020790023:0
+[   20570ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8083/ws-notifications/info?t=1782020795025:0
+[   25571ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8083/ws-notifications/info?t=1782020800027:0
+[   30585ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8083/ws-notifications/info?t=1782020805029:0

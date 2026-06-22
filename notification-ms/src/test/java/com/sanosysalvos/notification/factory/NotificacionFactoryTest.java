@@ -18,7 +18,7 @@ class NotificacionFactoryTest {
     private CoincidenciaEventDTO eventoEjemplo() {
         CoincidenciaEventDTO evento = new CoincidenciaEventDTO();
         evento.setId_coincidencia(1L);
-        evento.setId_usuario_reporte_perdida(5L);
+        evento.setId_usuario_reporte_perdida("5");
         evento.setNombre_mascota("Luna");
         evento.setDireccion("Calle 123");
         evento.setFecha_coincidencia("2026-06-10");
@@ -33,7 +33,7 @@ class NotificacionFactoryTest {
 
         assertThat(n.getEstado_notificacion()).isEqualTo("ENVIADA");
         assertThat(n.getDescripcion()).contains("Match").contains("Luna");
-        assertThat(n.getId_usuario_reporte_perdida()).isEqualTo(5L);
+        assertThat(n.getId_usuario_reporte_perdida()).isEqualTo("5");
         assertThat(n.getEmail_usuario()).isEqualTo("dueno@example.com");
     }
 

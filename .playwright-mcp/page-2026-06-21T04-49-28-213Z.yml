@@ -1,0 +1,44 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e5]: Sanos y Salvos
+    - generic [ref=e7]: Registro de Prestadores
+  - generic [ref=e28]:
+    - generic [ref=e65]:
+      - img [ref=e67]
+      - generic [ref=e70]:
+        - heading "¡Cuenta creada!" [level=2] [ref=e71]
+        - paragraph [ref=e72]: Ahora inicia tu sesión.
+        - paragraph [ref=e73]: Redirigiendo en 5 seg...
+    - generic [ref=e29]:
+      - button "Volver a selección de rol" [ref=e30]:
+        - img [ref=e31]
+        - text: Volver a selección de rol
+      - generic [ref=e33]:
+        - generic [ref=e34]:
+          - img [ref=e36]
+          - generic [ref=e38]:
+            - heading "Crear cuenta" [level=1] [ref=e39]
+            - paragraph [ref=e40]: Refugio · Espacio de acogida
+        - generic [ref=e41]:
+          - generic [ref=e42]:
+            - generic [ref=e43]: Nombre del refugio
+            - textbox "Refugio Amigos Peludos" [ref=e44]: Refugio QA Test
+          - generic [ref=e45]:
+            - generic [ref=e46]: Dirección
+            - textbox "Calle Los Aromos 456, Maipú" [ref=e47]: Calle Test 456, Maipú
+          - generic [ref=e48]:
+            - generic [ref=e49]: Correo electrónico
+            - textbox "contacto@refugio.cl" [ref=e50]: daniel.qa.refugio@test.com
+          - generic [ref=e51]:
+            - generic [ref=e52]: Contraseña
+            - generic [ref=e53]:
+              - textbox "Mínimo 8 caracteres" [ref=e54]: Test1234!
+              - button [ref=e55]:
+                - img [ref=e56]
+          - generic [ref=e58]:
+            - generic [ref=e59]: Teléfono
+            - textbox "+56 9 8765 4321" [ref=e60]: "+56987654321"
+          - button "Crear cuenta" [ref=e61]
+      - paragraph [ref=e62]:
+        - text: ¿Ya tienes una cuenta?
+        - button "Inicia sesión" [ref=e63]

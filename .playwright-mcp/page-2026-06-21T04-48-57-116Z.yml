@@ -1,0 +1,37 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e5]: Sanos y Salvos
+    - generic [ref=e7]: Registro de Prestadores
+  - generic [ref=e29]:
+    - button "Volver a selección de rol" [ref=e30]:
+      - img [ref=e31]
+      - text: Volver a selección de rol
+    - generic [ref=e33]:
+      - generic [ref=e34]:
+        - img [ref=e36]
+        - generic [ref=e38]:
+          - heading "Crear cuenta" [level=1] [ref=e39]
+          - paragraph [ref=e40]: Clínica · Centro médico veterinario
+      - generic [ref=e41]:
+        - generic [ref=e42]:
+          - generic [ref=e43]: Nombre de la clínica
+          - textbox "Clínica Veterinaria San Pedro" [ref=e44]
+        - generic [ref=e45]:
+          - generic [ref=e46]: Dirección
+          - textbox "Av. Providencia 1234, Santiago" [ref=e47]
+        - generic [ref=e48]:
+          - generic [ref=e49]: Correo electrónico
+          - textbox "contacto@clinica.cl" [ref=e50]
+        - generic [ref=e51]:
+          - generic [ref=e52]: Contraseña
+          - generic [ref=e53]:
+            - textbox "Mínimo 8 caracteres" [ref=e54]
+            - button [ref=e55]:
+              - img [ref=e56]
+        - generic [ref=e58]:
+          - generic [ref=e59]: Teléfono
+          - textbox "+56 2 2345 6789" [ref=e60]
+        - button "Crear cuenta" [ref=e61]
+    - paragraph [ref=e62]:
+      - text: ¿Ya tienes una cuenta?
+      - button "Inicia sesión" [ref=e63]

@@ -1,0 +1,81 @@
+- generic [ref=e47]:
+  - banner [ref=e48]:
+    - button [ref=e49]:
+      - img [ref=e50]
+    - generic [ref=e52]: Nuevo reporte
+  - generic [ref=e55]:
+    - generic [ref=e56]:
+      - img [ref=e58]
+      - generic [ref=e60]:
+        - heading "Reportar mascota" [level=1] [ref=e61]
+        - paragraph [ref=e62]: Completa la información para publicar el aviso
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - generic [ref=e65]:
+          - generic [ref=e66]: Tipo de reporte
+          - combobox [ref=e67]:
+            - option "Selecciona..." [disabled]
+            - option "Mascota perdida"
+            - option "Mascota avistada" [selected]
+        - generic [ref=e68]:
+          - generic [ref=e69]: Tipo de mascota
+          - combobox [ref=e70]:
+            - option "Selecciona..." [disabled]
+            - option "Perro"
+            - option "Gato" [selected]
+            - option "Otro"
+      - generic [ref=e71]:
+        - generic [ref=e72]:
+          - generic [ref=e73]: Nombre de la mascota
+          - 'textbox "Ej: Luna, Max, Desconocido" [ref=e74]': Michi Playwright
+        - generic [ref=e75]:
+          - generic [ref=e76]: Raza
+          - 'textbox "Ej: Labrador, Mestizo, Persa" [ref=e77]': Comun
+      - generic [ref=e78]:
+        - generic [ref=e79]:
+          - generic [ref=e80]: Color
+          - 'textbox "Ej: Negro con manchas blancas" [ref=e81]': Gris
+        - generic [ref=e82]:
+          - generic [ref=e83]: Tamaño
+          - combobox [ref=e84]:
+            - option "Selecciona..." [disabled]
+            - option "Pequeño"
+            - option "Mediano" [selected]
+            - option "Grande"
+      - generic [ref=e85]:
+        - generic [ref=e86]: Sexo
+        - combobox [ref=e87]:
+          - option "Selecciona..." [disabled]
+          - option "Macho"
+          - option "Hembra" [selected]
+      - generic [ref=e88]:
+        - generic [ref=e89]: Dirección donde fue visto/perdido
+        - 'textbox "Ej: Av. Los Libertadores 7200, Cerrillos, Santiago" [ref=e90]': Avenida Diez de Julio Humachuco 100, Santiago
+      - generic [ref=e91]:
+        - generic [ref=e92]: Mové el pin para ajustar la ubicación exacta
+        - generic [ref=e94]:
+          - button [ref=e95] [cursor=pointer]
+          - link "Leaflet" [ref=e98] [cursor=pointer]:
+            - /url: https://leafletjs.com
+            - img [ref=e99]
+            - text: Leaflet
+        - button "Dirección confirmada" [ref=e120]:
+          - img [ref=e104]
+          - text: Dirección confirmada
+      - generic [ref=e106]:
+        - generic [ref=e107]: Descripción
+        - textbox "Describe características distintivas, collar, comportamiento, contexto de la desaparición..." [ref=e108]: Reporte de prueba creado con Playwright, sin foto adjunta.
+      - generic [ref=e109]:
+        - generic [ref=e110]: Foto de la mascota (opcional)
+        - generic [ref=e111] [cursor=pointer]:
+          - img [ref=e113]
+          - generic [ref=e115]:
+            - paragraph [ref=e116]: Arrastra una foto aquí
+            - paragraph [ref=e117]: o haz clic para seleccionar
+          - generic [ref=e118]: JPG, PNG, WEBP
+      - button "Publicar reporte" [ref=e119]
+  - generic [ref=e122]:
+    - img [ref=e126]
+    - generic [ref=e129]:
+      - heading "¡Reporte publicado!" [level=2] [ref=e130]
+      - paragraph [ref=e131]: Volviendo al mapa...
