@@ -1,0 +1,11 @@
+/home/danielbeltrn/new-sanys/SanosYSalvos/bff-sanos-y-salvos/src/test/java/cl/sys/bff/bfffsanys/BfffSanysApplicationTests.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/bff-sanos-y-salvos/src/test/java/cl/sys/bff/bfffsanys/controller/LoginControllerTest.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/bff-sanos-y-salvos/src/test/java/cl/sys/bff/bfffsanys/controller/NotificacionesControllerTest.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/bff-sanos-y-salvos/src/test/java/cl/sys/bff/bfffsanys/controller/RegistroControllerTest.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/bff-sanos-y-salvos/src/test/java/cl/sys/bff/bfffsanys/controller/ReportesControllerTest.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/bff-sanos-y-salvos/src/test/java/cl/sys/bff/bfffsanys/exception/GlobalExceptionHandlerTest.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/bff-sanos-y-salvos/src/test/java/cl/sys/bff/bfffsanys/mapper/LoginMapperTest.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/bff-sanos-y-salvos/src/test/java/cl/sys/bff/bfffsanys/service/impl/LoginServiceImplTest.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/bff-sanos-y-salvos/src/test/java/cl/sys/bff/bfffsanys/service/impl/NotificacionesServiceImplTest.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/bff-sanos-y-salvos/src/test/java/cl/sys/bff/bfffsanys/service/impl/RegistroServiceImplTest.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/bff-sanos-y-salvos/src/test/java/cl/sys/bff/bfffsanys/service/impl/ReportesServiceImplTest.java

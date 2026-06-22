@@ -15,18 +15,16 @@ import java.util.stream.Collectors;
 @Service
 public class ReporteServiceImpl implements ReporteService {
 
+    private static final double RADIO_CERCANIA_KM = 1.0;
+
     private final ReporteRepository reporteRepository;
     private final ReportePublisher reportePublisher;
-    private final GeoService geoService; 
 
-   
     public ReporteServiceImpl(
-        ReporteRepository reporteRepository, 
-        ReportePublisher reportePublisher, 
-        GeoService geoService) {
+        ReporteRepository reporteRepository,
+        ReportePublisher reportePublisher) {
         this.reporteRepository = reporteRepository;
         this.reportePublisher = reportePublisher;
-        this.geoService = geoService;
     }
 
     @Override
@@ -52,6 +50,44 @@ public class ReporteServiceImpl implements ReporteService {
     }
 
     @Override
+    public List<ReporteResponseDTO> obtenerCercanos(Double latitud, Double longitud) {
+        return reporteRepository.findAll()
+            .stream()
+            .filter(reporte -> estaDentroDelRadio(reporte.getCoordenadas(), latitud, longitud))
+            .map(this::mapToResponseDTO)
+            .collect(Collectors.toList());
+    }
+
+    private boolean estaDentroDelRadio(String coordenadas, Double latitud, Double longitud) {
+        Double distanciaKm = calcularDistanciaKm(coordenadas, latitud, longitud);
+        return distanciaKm != null && distanciaKm <= RADIO_CERCANIA_KM;
+    }
+
+    private Double calcularDistanciaKm(String coordenadas, Double latitudOrigen, Double longitudOrigen) {
+        if (coordenadas == null || coordenadas.isBlank() || latitudOrigen == null || longitudOrigen == null) {
+            return null;
+        }
+        try {
+            String[] partes = coordenadas.split(",");
+            double lat1 = Double.parseDouble(partes[0].trim());
+            double lon1 = Double.parseDouble(partes[1].trim());
+
+            final int radioTierraKm = 6371;
+            double dLat = Math.toRadians(latitudOrigen - lat1);
+            double dLon = Math.toRadians(longitudOrigen - lon1);
+            double sinDLat = Math.sin(dLat / 2);
+            double sinDLon = Math.sin(dLon / 2);
+            double a = sinDLat * sinDLat +
+                    Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(latitudOrigen)) *
+                            sinDLon * sinDLon;
+            double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return radioTierraKm * c;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
     public ReporteResponseDTO obtenerPorId(Long id) {
         ReporteModel reporte = reporteRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Reporte no encontrado con ID: " + id));
@@ -65,7 +101,6 @@ public class ReporteServiceImpl implements ReporteService {
             .orElseThrow(() -> new RuntimeException("No se puede actualizar. Reporte no encontrado con ID: " + id));
 
         aplicarCamposEditables(reporteExistente, dto);
-        actualizarCoordenadas(reporteExistente, dto.getDireccion());
 
         ReporteModel reporteActualizado = reporteRepository.save(reporteExistente);
         return mapToResponseDTO(reporteActualizado);
@@ -83,7 +118,6 @@ public class ReporteServiceImpl implements ReporteService {
     private ReporteModel mapToEntity(ReporteRequestDTO dto) {
         ReporteModel reporte = new ReporteModel();
         aplicarCamposEditables(reporte, dto);
-        actualizarCoordenadas(reporte, dto.getDireccion());
         return reporte;
     }
 
@@ -98,13 +132,8 @@ public class ReporteServiceImpl implements ReporteService {
         reporte.setFotoMascota(dto.getFotoMascota());
         reporte.setDescripcion(dto.getDescripcion());
         reporte.setDireccion(dto.getDireccion());
+        reporte.setCoordenadas(dto.getCoordenadas());
         reporte.setSexo(dto.getSexo());
-    }
-
-    private void actualizarCoordenadas(ReporteModel reporte, String direccion) {
-        if (direccion != null && !direccion.isBlank()) {
-            reporte.setCoordenadas(geoService.obtenerCoordenadas(direccion));
-        }
     }
 
     private ReporteResponseDTO mapToResponseDTO(ReporteModel model) {

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JwtService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">registro</a> &gt; <a href="index.source.html" class="el_package">cl.sys.registro.registro.security</a> &gt; <span class="el_source">JwtService.java</span></div><h1>JwtService.java</h1><pre class="source lang-java linenums">package cl.sys.registro.registro.security;
+
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.JWSAlgorithm;
+import com.nimbusds.jose.JWSHeader;
+import com.nimbusds.jose.crypto.RSASSASigner;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.time.Instant;
+import java.util.Date;
+import java.util.UUID;
+
+@Service
+@RequiredArgsConstructor
+public class JwtService {
+
+    private static final long EXPIRATION_SECONDS = 3600;
+
+    private final JwtKeyProvider keyProvider;
+
+    public String generateToken(UUID userId, String role, String userType, Long phone, String email) {
+<span class="nc" id="L25">        Instant now = Instant.now();</span>
+
+<span class="nc" id="L27">        JWTClaimsSet.Builder claims = new JWTClaimsSet.Builder()</span>
+<span class="nc" id="L28">                .subject(userId.toString())</span>
+<span class="nc" id="L29">                .claim(&quot;role&quot;, role)</span>
+<span class="nc" id="L30">                .claim(&quot;user_type&quot;, userType)</span>
+<span class="nc" id="L31">                .claim(&quot;email&quot;, email)</span>
+<span class="nc" id="L32">                .issueTime(Date.from(now))</span>
+<span class="nc" id="L33">                .expirationTime(Date.from(now.plusSeconds(EXPIRATION_SECONDS)));</span>
+
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        if (phone != null) {</span>
+<span class="nc" id="L36">            claims.claim(&quot;phone&quot;, phone);</span>
+        }
+
+<span class="nc" id="L39">        SignedJWT signedJWT = new SignedJWT(</span>
+                new JWSHeader(JWSAlgorithm.RS256),
+<span class="nc" id="L41">                claims.build()</span>
+        );
+
+        try {
+<span class="nc" id="L45">            signedJWT.sign(new RSASSASigner(keyProvider.privateKey()));</span>
+<span class="nc" id="L46">        } catch (JOSEException e) {</span>
+<span class="nc" id="L47">            throw new IllegalStateException(&quot;No se pudo firmar el JWT&quot;, e);</span>
+<span class="nc" id="L48">        }</span>
+
+<span class="nc" id="L50">        return signedJWT.serialize();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

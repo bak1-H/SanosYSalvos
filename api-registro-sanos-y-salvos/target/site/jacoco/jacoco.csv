@@ -1,0 +1,16 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+registro,cl.sys.registro.registro.security,JwtService,62,0,2,0,17,0,2,0,1,0
+registro,cl.sys.registro.registro.security,JwtKeyProvider,54,63,3,1,13,14,5,4,3,4
+registro,cl.sys.registro.registro.security,JwksController,18,0,0,0,5,0,1,0,1,0
+registro,cl.sys.registro.registro,RegistroApplication,21,3,0,0,4,1,2,1,2,1
+registro,cl.sys.registro.registro.validation,RegistrationValidator,0,158,1,13,0,36,1,11,0,4
+registro,cl.sys.registro.registro.controller,RegistrationController,0,104,0,0,0,35,0,5,0,5
+registro,cl.sys.registro.registro.controller,LoginController,0,23,0,0,0,8,0,1,0,1
+registro,cl.sys.registro.registro.service,AuthenticationService,0,62,0,2,0,14,0,3,0,2
+registro,cl.sys.registro.registro.service,UserQueryService,42,172,2,6,0,34,7,9,5,5
+registro,cl.sys.registro.registro.service,RegistrationService,0,86,0,2,0,19,0,3,0,2
+registro,cl.sys.registro.registro.factory,RegistrationHandlerFactory,17,14,2,0,4,4,2,2,1,2
+registro,cl.sys.registro.registro.factory,RefugioHandler,0,23,0,0,0,7,0,2,0,2
+registro,cl.sys.registro.registro.factory,PersonaHandler,0,23,0,0,0,7,0,2,0,2
+registro,cl.sys.registro.registro.factory,ClinicaHandler,0,23,0,0,0,7,0,2,0,2
+registro,cl.sys.registro.registro.config,SecurityConfig,15,90,2,0,4,19,2,8,1,8

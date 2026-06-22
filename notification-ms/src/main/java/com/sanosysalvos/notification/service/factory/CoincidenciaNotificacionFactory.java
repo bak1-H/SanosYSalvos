@@ -22,6 +22,7 @@ public class CoincidenciaNotificacionFactory implements NotificacionFactory {
     public Notificacion crear(CoincidenciaEventDTO evento) {
         Notificacion n = new Notificacion();
         n.setId_coincidencia(evento.getId_coincidencia());
+        n.setId_reporte_encontrado(evento.getId_reporte_encontrado());
         n.setId_usuario(evento.getId_usuario_reporte_perdida());
         n.setId_usuario_reporte_perdida(evento.getId_usuario_reporte_perdida());
         n.setNombre_mascota(evento.getNombre_mascota());

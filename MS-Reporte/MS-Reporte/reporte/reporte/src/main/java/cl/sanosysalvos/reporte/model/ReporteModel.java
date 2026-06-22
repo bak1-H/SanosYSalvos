@@ -14,7 +14,7 @@ public class ReporteModel {
     private Long idReporte;
     
     @Column(name = "id_usuario")
-    private Integer idUsuario;
+    private String idUsuario;
 
     @Column(name = "coordenadas")
     private String coordenadas;

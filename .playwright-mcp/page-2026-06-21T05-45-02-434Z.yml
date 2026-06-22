@@ -1,0 +1,17 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e5]: Sanos y Salvos
+    - generic [ref=e7]: Registro de Prestadores
+  - generic [ref=e9]:
+    - button "Clínica Proporciona atención médica, gestiona citas y ayuda a la comunidad." [ref=e10]:
+      - img [ref=e12]
+      - heading "Clínica" [level=3] [ref=e14]
+      - paragraph [ref=e15]: Proporciona atención médica, gestiona citas y ayuda a la comunidad.
+    - button "Refugio Gestiona espacios de acogida, recursos y servicios de emergencia." [ref=e16]:
+      - img [ref=e18]
+      - heading "Refugio" [level=3] [ref=e20]
+      - paragraph [ref=e21]: Gestiona espacios de acogida, recursos y servicios de emergencia.
+    - button "Persona Busca ayuda, conecta con profesionales o colabora como voluntario." [ref=e22]:
+      - img [ref=e24]
+      - heading "Persona" [level=3] [ref=e26]
+      - paragraph [ref=e27]: Busca ayuda, conecta con profesionales o colabora como voluntario.

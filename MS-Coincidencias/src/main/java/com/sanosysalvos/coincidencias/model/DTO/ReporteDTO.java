@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ReporteDTO {
     private Long id; 
-    private Integer idUsuario;
+    private String idUsuario;
     
     // Datos principales del reporte
     private String tipoReporte; 

@@ -1,0 +1,10 @@
+cl/sys/registro/registro/factory/ClinicaHandlerTest.class
+cl/sys/registro/registro/controller/RegistrationControllerTest.class
+cl/sys/registro/registro/controller/LoginControllerTest.class
+cl/sys/registro/registro/service/UserQueryServiceTest.class
+cl/sys/registro/registro/factory/RefugioHandlerTest.class
+cl/sys/registro/registro/service/RegistrationServiceTest.class
+cl/sys/registro/registro/RegistroApplicationTests.class
+cl/sys/registro/registro/factory/PersonaHandlerTest.class
+cl/sys/registro/registro/validation/RegistrationValidatorTest.class
+cl/sys/registro/registro/service/AuthenticationServiceTest.class

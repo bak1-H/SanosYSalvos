@@ -27,7 +27,7 @@ class CanalStrategiesTest {
 
     private Notificacion notificacion() {
         Notificacion n = new Notificacion();
-        n.setId_usuario_reporte_perdida(5L);
+        n.setId_usuario_reporte_perdida("5");
         n.setEmail_usuario("dueno@example.com");
         n.setDescripcion("Coincidencia para Luna");
         return n;
@@ -63,6 +63,6 @@ class CanalStrategiesTest {
         assertThat(webSocketStrategy.getCanal()).isEqualTo(CanalNotificacion.WEBSOCKET);
 
         webSocketStrategy.enviar(n);
-        verify(webSocketService, times(1)).notificarUsuario(5L, n);
+        verify(webSocketService, times(1)).notificarUsuario("5", n);
     }
 }

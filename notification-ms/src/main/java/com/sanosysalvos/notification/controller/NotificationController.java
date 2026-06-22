@@ -38,4 +38,12 @@ public class NotificationController {
     public Notificacion obtenerPorId(@PathVariable Long id) {
         return service.obtenerPorId(id);
     }
+
+    @GetMapping("/usuario/{idUsuario}")
+    @Operation(summary = "Listar las notificaciones de un usuario",
+            description = "Permite recuperar las notificaciones acumuladas mientras el usuario estaba "
+                    + "desconectado del WebSocket.")
+    public List<Notificacion> obtenerPorUsuario(@PathVariable String idUsuario) {
+        return service.obtenerPorUsuario(idUsuario);
+    }
 }

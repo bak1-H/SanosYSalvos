@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ReporteRequestDTO {
     
-    private Integer idUsuario;
+    private String idUsuario;
     private TipoReporte tipoReporte; 
     private String tipoMascota;
     private String nombreMascota;
@@ -23,5 +23,6 @@ public class ReporteRequestDTO {
     private String fotoMascota;
     private String descripcion;
     private String direccion;
-    private String sexo; 
+    private String coordenadas;
+    private String sexo;
 }

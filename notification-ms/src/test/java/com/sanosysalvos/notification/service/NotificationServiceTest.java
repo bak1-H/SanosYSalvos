@@ -50,7 +50,7 @@ class NotificationServiceTest {
     private CoincidenciaEventDTO evento() {
         CoincidenciaEventDTO e = new CoincidenciaEventDTO();
         e.setId_coincidencia(1L);
-        e.setId_usuario_reporte_perdida(5L);
+        e.setId_usuario_reporte_perdida("5");
         e.setNombre_mascota("Luna");
         e.setEmail_usuario("dueno@example.com");
         e.setTipo_evento("COINCIDENCIA_ENCONTRADA");

@@ -1,0 +1,36 @@
+- generic [ref=e26]:
+  - banner [ref=e27]:
+    - generic [ref=e28]: Sanos y Salvos
+    - generic [ref=e29]:
+      - generic [ref=e30]: 1 perdidos
+      - generic [ref=e32]: 1 avistados
+  - main [ref=e34]:
+    - generic [ref=e35]:
+      - generic:
+        - generic:
+          - button [ref=e36] [cursor=pointer]
+          - button [ref=e38] [cursor=pointer]
+          - button [ref=e40] [cursor=pointer]
+      - generic [ref=e42]:
+        - link "Leaflet" [ref=e43] [cursor=pointer]:
+          - /url: https://leafletjs.com
+          - img [ref=e44]
+          - text: Leaflet
+        - text: "| ©"
+        - link "OpenStreetMap" [ref=e48] [cursor=pointer]:
+          - /url: https://www.openstreetmap.org/copyright
+    - generic [ref=e49]: 2 reportes en 1 km a la redonda
+    - button "Crear reporte" [ref=e50]:
+      - img [ref=e51]
+      - text: Crear reporte
+  - navigation [ref=e53]:
+    - generic [ref=e54]:
+      - button "Perfil" [ref=e55]:
+        - img [ref=e56]
+        - generic [ref=e58]: Perfil
+      - button "Reportes" [ref=e59]:
+        - img [ref=e60]
+        - generic [ref=e62]: Reportes
+      - button "Alertas" [ref=e63]:
+        - img [ref=e65]
+        - generic [ref=e67]: Alertas

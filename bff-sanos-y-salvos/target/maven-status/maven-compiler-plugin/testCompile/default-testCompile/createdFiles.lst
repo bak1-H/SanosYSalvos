@@ -1,0 +1,11 @@
+cl/sys/bff/bfffsanys/service/impl/LoginServiceImplTest.class
+cl/sys/bff/bfffsanys/controller/NotificacionesControllerTest.class
+cl/sys/bff/bfffsanys/mapper/LoginMapperTest.class
+cl/sys/bff/bfffsanys/controller/LoginControllerTest.class
+cl/sys/bff/bfffsanys/service/impl/RegistroServiceImplTest.class
+cl/sys/bff/bfffsanys/controller/RegistroControllerTest.class
+cl/sys/bff/bfffsanys/exception/GlobalExceptionHandlerTest.class
+cl/sys/bff/bfffsanys/controller/ReportesControllerTest.class
+cl/sys/bff/bfffsanys/BfffSanysApplicationTests.class
+cl/sys/bff/bfffsanys/service/impl/NotificacionesServiceImplTest.class
+cl/sys/bff/bfffsanys/service/impl/ReportesServiceImplTest.class

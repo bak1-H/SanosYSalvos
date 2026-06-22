@@ -17,15 +17,12 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 class ReporteServiceImplTest {
@@ -36,23 +33,19 @@ class ReporteServiceImplTest {
     @Mock
     private ReportePublisher reportePublisher;
 
-    @Mock
-    private GeoService geoService;
-
     private AutoCloseable mocks;
     private ReporteServiceImpl reporteService;
 
     @BeforeEach
     void setUp() {
         mocks = MockitoAnnotations.openMocks(this);
-        reporteService = new ReporteServiceImpl(reporteRepository, reportePublisher, geoService);
+        reporteService = new ReporteServiceImpl(reporteRepository, reportePublisher);
     }
 
     @Test
-    void guardarReporte_calculaCoordenadasYPublicaEvento() {
+    void guardarReporte_persisteCoordenadasRecibidasDelFrontYPublicaEvento() {
         ReporteRequestDTO dto = baseDto();
-        dto.setDireccion("Calle Falsa 123");
-        when(geoService.obtenerCoordenadas("Calle Falsa 123")).thenReturn("10,20");
+        dto.setCoordenadas("10,20");
         when(reporteRepository.save(any(ReporteModel.class))).thenAnswer(invocation -> {
             ReporteModel reporte = invocation.getArgument(0);
             reporte.setIdReporte(1L);
@@ -67,13 +60,12 @@ class ReporteServiceImplTest {
         assertEquals("10,20", response.getCoordenadas());
         assertEquals("10,20", captor.getValue().getCoordenadas());
         assertEquals(TipoReporte.PERDIDO, captor.getValue().getTipoReporte());
-        verify(geoService).obtenerCoordenadas("Calle Falsa 123");
     }
 
     @Test
-    void guardarReporte_sinDireccionNoConsultaGeoService() {
+    void guardarReporte_sinCoordenadasLasPersisteComoNulas() {
         ReporteRequestDTO dto = baseDto();
-        dto.setDireccion("   ");
+        dto.setCoordenadas(null);
         when(reporteRepository.save(any(ReporteModel.class))).thenAnswer(invocation -> {
             ReporteModel reporte = invocation.getArgument(0);
             reporte.setIdReporte(2L);
@@ -84,7 +76,6 @@ class ReporteServiceImplTest {
 
         assertEquals(2L, response.getId());
         assertNull(response.getCoordenadas());
-        verifyNoInteractions(geoService);
     }
 
     @Test
@@ -101,6 +92,37 @@ class ReporteServiceImplTest {
     }
 
     @Test
+    void obtenerCercanos_devuelveSoloReportesDentroDeUnKilometro() {
+        ReporteModel cercano = reporteBase();
+        cercano.setIdReporte(10L);
+        cercano.setCoordenadas("-33.4569,-70.6483");
+
+        ReporteModel lejano = reporteBase();
+        lejano.setIdReporte(11L);
+        lejano.setCoordenadas("-33.6000,-70.8000");
+
+        when(reporteRepository.findAll()).thenReturn(List.of(cercano, lejano));
+
+        List<ReporteResponseDTO> resultado = reporteService.obtenerCercanos(-33.4570, -70.6480);
+
+        assertEquals(1, resultado.size());
+        assertEquals(10L, resultado.get(0).getId());
+    }
+
+    @Test
+    void obtenerCercanos_ignoraReportesSinCoordenadas() {
+        ReporteModel sinCoordenadas = reporteBase();
+        sinCoordenadas.setIdReporte(12L);
+        sinCoordenadas.setCoordenadas(null);
+
+        when(reporteRepository.findAll()).thenReturn(List.of(sinCoordenadas));
+
+        List<ReporteResponseDTO> resultado = reporteService.obtenerCercanos(-33.4570, -70.6480);
+
+        assertEquals(0, resultado.size());
+    }
+
+    @Test
     void obtenerPorId_devuelveReporteExistente() {
         ReporteModel reporte = reporteBase();
         reporte.setIdReporte(4L);
@@ -113,16 +135,16 @@ class ReporteServiceImplTest {
     }
 
     @Test
-    void actualizarReporte_actualizaCamposYCoordenadas() {
+    void actualizarReporte_actualizaCamposYCoordenadasRecibidasDelFront() {
         ReporteModel existente = reporteBase();
         existente.setIdReporte(5L);
         when(reporteRepository.findById(5L)).thenReturn(Optional.of(existente));
-        when(geoService.obtenerCoordenadas("Nueva direccion 456")).thenReturn("11,22");
         when(reporteRepository.save(any(ReporteModel.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         ReporteRequestDTO dto = baseDto();
         dto.setTipoMascota("gato");
         dto.setDireccion("Nueva direccion 456");
+        dto.setCoordenadas("11,22");
         dto.setSexo("Hembra");
 
         ReporteResponseDTO response = reporteService.actualizarReporte(5L, dto);
@@ -130,7 +152,6 @@ class ReporteServiceImplTest {
         assertEquals(5L, response.getId());
         assertEquals("gato", response.getTipoMascota());
         assertEquals("11,22", response.getCoordenadas());
-        verify(geoService).obtenerCoordenadas("Nueva direccion 456");
     }
 
     @Test
@@ -154,7 +175,7 @@ class ReporteServiceImplTest {
 
     private ReporteRequestDTO baseDto() {
         ReporteRequestDTO dto = new ReporteRequestDTO();
-        dto.setIdUsuario(7);
+        dto.setIdUsuario("9010f7e9-60a8-45da-aa48-264186595688");
         dto.setTipoReporte(TipoReporte.PERDIDO);
         dto.setTipoMascota("perro");
         dto.setNombreMascota("Firulais");
@@ -170,7 +191,7 @@ class ReporteServiceImplTest {
 
     private ReporteModel reporteBase() {
         ReporteModel reporte = new ReporteModel();
-        reporte.setIdUsuario(7);
+        reporte.setIdUsuario("9010f7e9-60a8-45da-aa48-264186595688");
         reporte.setTipoReporte(TipoReporte.PERDIDO);
         reporte.setTipoMascota("perro");
         reporte.setNombreMascota("Firulais");

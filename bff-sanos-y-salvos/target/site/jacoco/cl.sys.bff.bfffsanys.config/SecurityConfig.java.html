@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SecurityConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bfff-sanys</a> &gt; <a href="index.source.html" class="el_package">cl.sys.bff.bfffsanys.config</a> &gt; <span class="el_source">SecurityConfig.java</span></div><h1>SecurityConfig.java</h1><pre class="source lang-java linenums">package cl.sys.bff.bfffsanys.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.web.SecurityFilterChain;
+
+import java.util.List;
+
+@Configuration
+@EnableWebSecurity
+<span class="fc" id="L20">public class SecurityConfig {</span>
+
+    private static final String REGISTRO_JWKS_URL = &quot;http://api-registro:8080/.well-known/jwks.json&quot;;
+
+    @Bean
+    public JwtDecoder jwtDecoder() {
+<span class="fc" id="L26">        return NimbusJwtDecoder.withJwkSetUri(REGISTRO_JWKS_URL)</span>
+<span class="fc" id="L27">                .jwsAlgorithm(SignatureAlgorithm.RS256)</span>
+<span class="fc" id="L28">                .build();</span>
+    }
+
+    @Bean
+    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+<span class="fc" id="L33">        JwtAuthenticationConverter converter = new JwtAuthenticationConverter();</span>
+<span class="fc" id="L34">        converter.setJwtGrantedAuthoritiesConverter(jwt -&gt; {</span>
+<span class="nc" id="L35">            String role = jwt.getClaimAsString(&quot;role&quot;);</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">            if (role == null) {</span>
+<span class="nc" id="L37">                return List.of();</span>
+            }
+<span class="nc" id="L39">            return List.of(new SimpleGrantedAuthority(&quot;ROLE_&quot; + role));</span>
+        });
+<span class="fc" id="L41">        return converter;</span>
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http, JwtDecoder jwtDecoder,
+                                            JwtAuthenticationConverter jwtAuthenticationConverter) throws Exception {
+<span class="fc" id="L47">        return http</span>
+<span class="fc" id="L48">                .cors(AbstractHttpConfigurer::disable)</span>
+<span class="fc" id="L49">                .csrf(AbstractHttpConfigurer::disable)</span>
+<span class="fc" id="L50">                .sessionManagement(s -&gt; s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))</span>
+<span class="fc" id="L51">                .authorizeHttpRequests(auth -&gt; auth</span>
+<span class="fc" id="L52">                        .requestMatchers(&quot;/actuator/health&quot;, &quot;/actuator/info&quot;, &quot;/api/registro&quot;, &quot;/api/login&quot;, &quot;/api/notifications/**&quot;).permitAll()</span>
+<span class="fc" id="L53">                        .anyRequest().authenticated()</span>
+                )
+<span class="fc" id="L55">                .oauth2ResourceServer(oauth2 -&gt; oauth2.jwt(jwt -&gt; jwt</span>
+<span class="fc" id="L56">                        .decoder(jwtDecoder)</span>
+<span class="fc" id="L57">                        .jwtAuthenticationConverter(jwtAuthenticationConverter)))</span>
+<span class="fc" id="L58">                .build();</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

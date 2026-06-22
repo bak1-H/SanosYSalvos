@@ -1,5 +1,6 @@
 package cl.sanosysalvos.reporte.controller;
 
+import cl.sanosysalvos.reporte.dto.ReporteNearbyRequestDTO;
 import cl.sanosysalvos.reporte.dto.ReporteRequestDTO;
 import cl.sanosysalvos.reporte.dto.ReporteResponseDTO;
 import cl.sanosysalvos.reporte.model.TipoReporte;
@@ -41,6 +42,20 @@ class ReporteControllerTest {
 
         assertEquals(200, result.getStatusCode().value());
         assertEquals(1, result.getBody().size());
+    }
+
+    @Test
+    void obtenerCercanos_devuelveOkConListaFiltrada() {
+        ReporteNearbyRequestDTO request = new ReporteNearbyRequestDTO();
+        request.setLatitud(-33.4570);
+        request.setLongitud(-70.6480);
+        when(reporteService.obtenerCercanos(-33.4570, -70.6480)).thenReturn(List.of(responseDto(6L)));
+
+        var result = controller.obtenerCercanos(request);
+
+        assertEquals(200, result.getStatusCode().value());
+        assertEquals(1, result.getBody().size());
+        verify(reporteService).obtenerCercanos(-33.4570, -70.6480);
     }
 
     @Test

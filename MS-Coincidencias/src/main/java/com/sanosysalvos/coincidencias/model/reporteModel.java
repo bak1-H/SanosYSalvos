@@ -20,7 +20,7 @@ public class reporteModel {
     private Long idReporte; 
 
     @Column(name = "id_usuario")
-    private Long idUsuario;
+    private String idUsuario;
 
     @Column(name = "tipo_reporte")
     private String tipoReporte;
