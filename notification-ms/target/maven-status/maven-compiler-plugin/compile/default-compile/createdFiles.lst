@@ -7,11 +7,11 @@ com/sanosysalvos/notification/NotificationApplication.class
 com/sanosysalvos/notification/repository/NotificacionRepository.class
 com/sanosysalvos/notification/controller/NotificationController.class
 com/sanosysalvos/notification/service/factory/NotificacionFactory.class
-com/sanosysalvos/notification/dto/CoincidenciaEventDTO.class
 com/sanosysalvos/notification/service/factory/TipoEvento.class
+com/sanosysalvos/notification/dto/CoincidenciaEventDTO.class
 com/sanosysalvos/notification/service/factory/CoincidenciaNotificacionFactory.class
-com/sanosysalvos/notification/config/WebSocketConfig.class
 com/sanosysalvos/notification/service/factory/MascotaEncontradaNotificacionFactory.class
+com/sanosysalvos/notification/config/WebSocketConfig.class
 com/sanosysalvos/notification/model/Notificacion.class
 com/sanosysalvos/notification/service/strategy/NotificacionDispatcher.class
 com/sanosysalvos/notification/service/NotificationService.class

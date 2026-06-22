@@ -3,7 +3,7 @@ FROM node:20-alpine AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
-COPY ../../../sanos-y-salvos/sanos-y-salvos-front/sanos-y-salvos .
+COPY . .
 RUN npm run build
 
 # Stage 2: Servidor web de producción

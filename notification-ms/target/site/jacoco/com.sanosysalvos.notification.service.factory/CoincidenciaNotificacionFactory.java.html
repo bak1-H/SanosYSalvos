@@ -22,16 +22,17 @@ import org.springframework.stereotype.Component;
     public Notificacion crear(CoincidenciaEventDTO evento) {
 <span class="fc" id="L23">        Notificacion n = new Notificacion();</span>
 <span class="fc" id="L24">        n.setId_coincidencia(evento.getId_coincidencia());</span>
-<span class="fc" id="L25">        n.setId_usuario(evento.getId_usuario_reporte_perdida());</span>
-<span class="fc" id="L26">        n.setId_usuario_reporte_perdida(evento.getId_usuario_reporte_perdida());</span>
-<span class="fc" id="L27">        n.setNombre_mascota(evento.getNombre_mascota());</span>
-<span class="fc" id="L28">        n.setDireccion(evento.getDireccion());</span>
-<span class="fc" id="L29">        n.setFecha_coincidencia(evento.getFecha_coincidencia());</span>
-<span class="fc" id="L30">        n.setEmail_usuario(evento.getEmail_usuario());</span>
-<span class="fc" id="L31">        n.setDescripcion(&quot;¡Match! Se ha registrado un avistamiento que podría ser tu mascota &quot;</span>
-<span class="fc" id="L32">                + evento.getNombre_mascota() + &quot;!&quot;);</span>
-<span class="fc" id="L33">        n.setEstado_notificacion(&quot;ENVIADA&quot;);</span>
-<span class="fc" id="L34">        return n;</span>
+<span class="fc" id="L25">        n.setId_reporte_encontrado(evento.getId_reporte_encontrado());</span>
+<span class="fc" id="L26">        n.setId_usuario(evento.getId_usuario_reporte_perdida());</span>
+<span class="fc" id="L27">        n.setId_usuario_reporte_perdida(evento.getId_usuario_reporte_perdida());</span>
+<span class="fc" id="L28">        n.setNombre_mascota(evento.getNombre_mascota());</span>
+<span class="fc" id="L29">        n.setDireccion(evento.getDireccion());</span>
+<span class="fc" id="L30">        n.setFecha_coincidencia(evento.getFecha_coincidencia());</span>
+<span class="fc" id="L31">        n.setEmail_usuario(evento.getEmail_usuario());</span>
+<span class="fc" id="L32">        n.setDescripcion(&quot;¡Match! Se ha registrado un avistamiento que podría ser tu mascota &quot;</span>
+<span class="fc" id="L33">                + evento.getNombre_mascota() + &quot;!&quot;);</span>
+<span class="fc" id="L34">        n.setEstado_notificacion(&quot;ENVIADA&quot;);</span>
+<span class="fc" id="L35">        return n;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

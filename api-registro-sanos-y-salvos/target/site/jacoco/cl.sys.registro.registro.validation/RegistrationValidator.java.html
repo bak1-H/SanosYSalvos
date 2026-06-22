@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RegistrationValidator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">registro</a> &gt; <a href="index.source.html" class="el_package">cl.sys.registro.registro.validation</a> &gt; <span class="el_source">RegistrationValidator.java</span></div><h1>RegistrationValidator.java</h1><pre class="source lang-java linenums">package cl.sys.registro.registro.validation;
+
+import cl.sys.registro.registro.dto.RegisterRequest;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+
+<span class="fc" id="L7">public class RegistrationValidator implements ConstraintValidator&lt;ValidRegistration, RegisterRequest&gt; {</span>
+
+    @Override
+    public boolean isValid(RegisterRequest request, ConstraintValidatorContext context) {
+<span class="fc bfc" id="L11" title="All 2 branches covered.">        if (request == null) return false;</span>
+
+<span class="fc" id="L13">        boolean valid = true;</span>
+<span class="fc" id="L14">        context.disableDefaultConstraintViolation();</span>
+
+<span class="fc" id="L16">        valid &amp;= requireField(context, request.getEmail(), &quot;email&quot;);</span>
+<span class="fc" id="L17">        valid &amp;= requireField(context, request.getPassword(), &quot;password&quot;);</span>
+<span class="fc" id="L18">        valid &amp;= requireField(context, request.getUserType(), &quot;userType&quot;);</span>
+<span class="fc" id="L19">        valid &amp;= requireNotNull(context, request.getPhone(), &quot;phone&quot;);</span>
+
+<span class="pc bpc" id="L21" title="1 of 2 branches missed.">        if (request.getUserType() != null) {</span>
+<span class="fc bfc" id="L22" title="All 4 branches covered.">            valid &amp;= switch (request.getUserType().toLowerCase()) {</span>
+                case &quot;persona&quot; -&gt; {
+<span class="fc" id="L24">                    boolean ok = requireField(context, request.getName(), &quot;name&quot;);</span>
+<span class="fc" id="L25">                    ok &amp;= requireField(context, request.getLastName(), &quot;lastName&quot;);</span>
+<span class="fc" id="L26">                    yield ok;</span>
+                }
+                case &quot;clinica&quot; -&gt; {
+<span class="fc" id="L29">                    boolean ok = requireField(context, request.getClinicaName(), &quot;clinicaName&quot;);</span>
+<span class="fc" id="L30">                    ok &amp;= requireField(context, request.getAddress(), &quot;address&quot;);</span>
+<span class="fc" id="L31">                    yield ok;</span>
+                }
+                case &quot;refugio&quot; -&gt; {
+<span class="fc" id="L34">                    boolean ok = requireField(context, request.getRefugioName(), &quot;refugioName&quot;);</span>
+<span class="fc" id="L35">                    ok &amp;= requireField(context, request.getAdress(), &quot;adress&quot;);</span>
+<span class="fc" id="L36">                    yield ok;</span>
+                }
+                default -&gt; {
+<span class="fc" id="L39">                    context.buildConstraintViolationWithTemplate(</span>
+                            &quot;userType debe ser: persona, clinica o refugio&quot;)
+<span class="fc" id="L41">                            .addPropertyNode(&quot;userType&quot;)</span>
+<span class="fc" id="L42">                            .addConstraintViolation();</span>
+<span class="fc" id="L43">                    yield false;</span>
+                }
+            };
+        }
+
+<span class="fc" id="L48">        return valid;</span>
+    }
+
+    private boolean requireField(ConstraintValidatorContext ctx, String value, String field) {
+<span class="fc bfc" id="L52" title="All 4 branches covered.">        if (value == null || value.isBlank()) {</span>
+<span class="fc" id="L53">            ctx.buildConstraintViolationWithTemplate(&quot;El campo &quot; + field + &quot; es obligatorio&quot;)</span>
+<span class="fc" id="L54">                    .addPropertyNode(field)</span>
+<span class="fc" id="L55">                    .addConstraintViolation();</span>
+<span class="fc" id="L56">            return false;</span>
+        }
+<span class="fc" id="L58">        return true;</span>
+    }
+
+    private boolean requireNotNull(ConstraintValidatorContext ctx, Object value, String field) {
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        if (value == null) {</span>
+<span class="fc" id="L63">            ctx.buildConstraintViolationWithTemplate(&quot;El campo &quot; + field + &quot; es obligatorio&quot;)</span>
+<span class="fc" id="L64">                    .addPropertyNode(field)</span>
+<span class="fc" id="L65">                    .addConstraintViolation();</span>
+<span class="fc" id="L66">            return false;</span>
+        }
+<span class="fc" id="L68">        return true;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

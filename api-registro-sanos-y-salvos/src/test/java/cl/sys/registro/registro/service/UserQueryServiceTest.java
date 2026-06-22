@@ -1,6 +1,7 @@
 package cl.sys.registro.registro.service;
 
 import cl.sys.registro.registro.dto.NombreUsuarioResponse;
+import cl.sys.registro.registro.dto.UserProfileResponse;
 import cl.sys.registro.registro.model.Clinica;
 import cl.sys.registro.registro.model.Persona;
 import cl.sys.registro.registro.model.Profile;
@@ -103,5 +104,85 @@ class UserQueryServiceTest {
         when(registerRepository.findById(id)).thenReturn(Optional.empty());
 
         assertThrows(NoSuchElementException.class, () -> userQueryService.getNombreById(id));
+    }
+
+    @Test
+    void getById_persona_devuelvePerfilCompletoConNombreYApellido() {
+        UUID id = UUID.randomUUID();
+        Profile profile = new Profile();
+        profile.setId(id);
+        profile.setRole("PERSONA");
+        profile.setUserType("persona");
+        profile.setPhone(56911111111L);
+        when(registerRepository.findById(id)).thenReturn(Optional.of(profile));
+
+        Persona persona = new Persona();
+        persona.setName("Daniel");
+        persona.setLastName("Beltran");
+        when(personaRepository.findById(id)).thenReturn(Optional.of(persona));
+
+        UserProfileResponse response = userQueryService.getById(id);
+
+        assertEquals("Daniel", response.getName());
+        assertEquals("Beltran", response.getLastName());
+        assertEquals("PERSONA", response.getRole());
+    }
+
+    @Test
+    void getById_clinica_devuelvePerfilCompletoConNombreYDireccion() {
+        UUID id = UUID.randomUUID();
+        Profile profile = new Profile();
+        profile.setId(id);
+        profile.setUserType("clinica");
+        when(registerRepository.findById(id)).thenReturn(Optional.of(profile));
+
+        Clinica clinica = new Clinica();
+        clinica.setClinicaName("Clinica Veterinaria Sur");
+        clinica.setAddress("Calle 123");
+        when(clinicaRepository.findById(id)).thenReturn(Optional.of(clinica));
+
+        UserProfileResponse response = userQueryService.getById(id);
+
+        assertEquals("Clinica Veterinaria Sur", response.getClinicaName());
+        assertEquals("Calle 123", response.getAddress());
+    }
+
+    @Test
+    void getById_refugio_devuelvePerfilCompletoConNombreYDireccion() {
+        UUID id = UUID.randomUUID();
+        Profile profile = new Profile();
+        profile.setId(id);
+        profile.setUserType("refugio");
+        when(registerRepository.findById(id)).thenReturn(Optional.of(profile));
+
+        Refugio refugio = new Refugio();
+        refugio.setRefugioName("Refugio Patitas");
+        refugio.setAdress("Calle 456");
+        when(refugioRepository.findById(id)).thenReturn(Optional.of(refugio));
+
+        UserProfileResponse response = userQueryService.getById(id);
+
+        assertEquals("Refugio Patitas", response.getRefugioName());
+        assertEquals("Calle 456", response.getAdress());
+    }
+
+    @Test
+    void getById_perfilInexistente_lanzaNoSuchElement() {
+        UUID id = UUID.randomUUID();
+        when(registerRepository.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(NoSuchElementException.class, () -> userQueryService.getById(id));
+    }
+
+    @Test
+    void getById_personaSinDatosAsociados_lanzaNoSuchElement() {
+        UUID id = UUID.randomUUID();
+        Profile profile = new Profile();
+        profile.setId(id);
+        profile.setUserType("persona");
+        when(registerRepository.findById(id)).thenReturn(Optional.of(profile));
+        when(personaRepository.findById(id)).thenReturn(Optional.empty());
+
+        assertThrows(NoSuchElementException.class, () -> userQueryService.getById(id));
     }
 }

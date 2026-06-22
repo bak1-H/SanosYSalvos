@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Service
 <span class="fc" id="L13">@Slf4j</span>
-<span class="fc" id="L14">@RequiredArgsConstructor</span>
+@RequiredArgsConstructor
 public class WebSocketNotificationService {
 
     private final SimpMessagingTemplate messagingTemplate;
@@ -33,17 +33,18 @@ public class WebSocketNotificationService {
 <span class="fc" id="L33">            mensaje.put(&quot;nombre_mascota&quot;, notificacion.getNombre_mascota());</span>
 <span class="fc" id="L34">            mensaje.put(&quot;descripcion&quot;, notificacion.getDescripcion());</span>
 <span class="fc" id="L35">            mensaje.put(&quot;id_coincidencia&quot;, notificacion.getId_coincidencia());</span>
-<span class="fc" id="L36">            mensaje.put(&quot;id_usuario_reporte_perdida&quot;, notificacion.getId_usuario_reporte_perdida());</span>
+<span class="fc" id="L36">            mensaje.put(&quot;id_reporte_encontrado&quot;, notificacion.getId_reporte_encontrado());</span>
+<span class="fc" id="L37">            mensaje.put(&quot;id_usuario_reporte_perdida&quot;, notificacion.getId_usuario_reporte_perdida());</span>
 
             // Enviar al usuario específico
             // El usuario debe estar conectado a /topic/notifications/{idUsuario}
-<span class="fc" id="L40">            String destino = &quot;/topic/notifications/&quot; + idUsuario;</span>
-<span class="fc" id="L41">            messagingTemplate.convertAndSend(destino, mensaje);</span>
+<span class="fc" id="L41">            String destino = &quot;/topic/notifications/&quot; + idUsuario;</span>
+<span class="fc" id="L42">            messagingTemplate.convertAndSend(destino, mensaje);</span>
             
-<span class="fc" id="L43">            log.info(&quot;Notificación enviada a usuario {} vía WebSocket&quot;, idUsuario);</span>
-<span class="fc" id="L44">        } catch (Exception e) {</span>
-<span class="fc" id="L45">            log.error(&quot;Error al enviar notificación vía WebSocket al usuario {}: {}&quot;, idUsuario, e.getMessage());</span>
-<span class="fc" id="L46">        }</span>
-<span class="fc" id="L47">    }</span>
+<span class="fc" id="L44">            log.info(&quot;Notificación enviada a usuario {} vía WebSocket&quot;, idUsuario);</span>
+<span class="fc" id="L45">        } catch (Exception e) {</span>
+<span class="fc" id="L46">            log.error(&quot;Error al enviar notificación vía WebSocket al usuario {}: {}&quot;, idUsuario, e.getMessage());</span>
+<span class="fc" id="L47">        }</span>
+<span class="fc" id="L48">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

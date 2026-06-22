@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: cl.sys.discoveryservice.apigateawaysys2.ApiGateawaySys2ApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.26 s -- in cl.sys.discoveryservice.apigateawaysys2.ApiGateawaySys2ApplicationTests

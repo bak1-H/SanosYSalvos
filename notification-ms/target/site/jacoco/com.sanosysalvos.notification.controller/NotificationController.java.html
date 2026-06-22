@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(&quot;/api/notifications&quot;)
-<span class="fc" id="L14">@RequiredArgsConstructor</span>
+@RequiredArgsConstructor
 @Tag(name = &quot;Notificaciones&quot;, description = &quot;Recepción y consulta de notificaciones de coincidencias&quot;)
 public class NotificationController {
 
@@ -37,6 +37,14 @@ public class NotificationController {
     @Operation(summary = &quot;Obtener una notificación por su ID&quot;)
     public Notificacion obtenerPorId(@PathVariable Long id) {
 <span class="fc" id="L39">        return service.obtenerPorId(id);</span>
+    }
+
+    @GetMapping(&quot;/usuario/{idUsuario}&quot;)
+    @Operation(summary = &quot;Listar las notificaciones de un usuario&quot;,
+            description = &quot;Permite recuperar las notificaciones acumuladas mientras el usuario estaba &quot;
+                    + &quot;desconectado del WebSocket.&quot;)
+    public List&lt;Notificacion&gt; obtenerPorUsuario(@PathVariable String idUsuario) {
+<span class="nc" id="L47">        return service.obtenerPorUsuario(idUsuario);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,4 +1,4 @@
 cl/sys/discoveryservice/apigateawaysys2/config/JwtRoleConverter.class
-cl/sys/discoveryservice/apigateawaysys2/ApiGateawaySys2Application.class
 cl/sys/discoveryservice/apigateawaysys2/config/SecurityConfig.class
+cl/sys/discoveryservice/apigateawaysys2/ApiGateawaySys2Application.class
 cl/sys/discoveryservice/apigateawaysys2/config/GatewayConfig.class

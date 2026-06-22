@@ -205,6 +205,21 @@ services:
       - sanos-y-salvos-net
     restart: unless-stopped
 
+  # --- FRONTEND ---
+  front:
+    build:
+      context: ./front-sanos-y-salvos
+      dockerfile: Dockerfile
+    container_name: front-sanys
+    ports:
+      - "5173:80"
+    depends_on:
+      bff-sanys:
+        condition: service_started
+    networks:
+      - sanos-y-salvos-net
+    restart: unless-stopped
+
 networks:
   sanos-y-salvos-net:
     driver: bridge

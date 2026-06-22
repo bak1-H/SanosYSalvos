@@ -1,5 +1,5 @@
-com/sanosysalvos/notification/factory/NotificacionFactoryProviderTest.class
 com/sanosysalvos/notification/service/NotificationServiceTest.class
+com/sanosysalvos/notification/factory/NotificacionFactoryProviderTest.class
 com/sanosysalvos/notification/strategy/NotificacionDispatcherTest.class
 com/sanosysalvos/notification/strategy/CanalStrategiesTest.class
 com/sanosysalvos/notification/controller/NotificationControllerTest.class

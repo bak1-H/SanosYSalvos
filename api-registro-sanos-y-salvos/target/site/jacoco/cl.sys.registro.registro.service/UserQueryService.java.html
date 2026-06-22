@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserQueryService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">registro</a> &gt; <a href="index.source.html" class="el_package">cl.sys.registro.registro.service</a> &gt; <span class="el_source">UserQueryService.java</span></div><h1>UserQueryService.java</h1><pre class="source lang-java linenums">package cl.sys.registro.registro.service;
+
+import cl.sys.registro.registro.dto.UserProfileResponse;
+import cl.sys.registro.registro.dto.NombreUsuarioResponse;
+import cl.sys.registro.registro.model.Clinica;
+import cl.sys.registro.registro.model.Persona;
+import cl.sys.registro.registro.model.Profile;
+import cl.sys.registro.registro.model.Refugio;
+import cl.sys.registro.registro.repository.ClinicaRepository;
+import cl.sys.registro.registro.repository.PersonaRepository;
+import cl.sys.registro.registro.repository.RefugioRepository;
+import cl.sys.registro.registro.repository.RegisterRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.NoSuchElementException;
+import java.util.UUID;
+
+@Service
+@RequiredArgsConstructor
+public class UserQueryService {
+
+    private final RegisterRepository registerRepository;
+    private final PersonaRepository personaRepository;
+    private final ClinicaRepository clinicaRepository;
+    private final RefugioRepository refugioRepository;
+
+    public UserProfileResponse getById(UUID id) {
+<span class="fc" id="L29">        Profile profile = registerRepository.findById(id)</span>
+<span class="fc" id="L30">                .orElseThrow(() -&gt; new NoSuchElementException(&quot;Usuario no encontrado con id: &quot; + id));</span>
+
+<span class="fc" id="L32">        UserProfileResponse.UserProfileResponseBuilder builder = UserProfileResponse.builder()</span>
+<span class="fc" id="L33">                .id(profile.getId())</span>
+<span class="fc" id="L34">                .role(profile.getRole())</span>
+<span class="fc" id="L35">                .userType(profile.getUserType())</span>
+<span class="fc" id="L36">                .phone(profile.getPhone());</span>
+
+<span class="pc bpc" id="L38" title="1 of 4 branches missed.">        switch (profile.getUserType().toLowerCase()) {</span>
+            case &quot;persona&quot; -&gt; {
+<span class="fc" id="L40">                Persona persona = personaRepository.findById(id)</span>
+<span class="fc" id="L41">                        .orElseThrow(() -&gt; new NoSuchElementException(&quot;Datos de persona no encontrados para id: &quot; + id));</span>
+<span class="fc" id="L42">                builder.name(persona.getName()).lastName(persona.getLastName());</span>
+<span class="fc" id="L43">            }</span>
+            case &quot;clinica&quot; -&gt; {
+<span class="fc" id="L45">                Clinica clinica = clinicaRepository.findById(id)</span>
+<span class="pc" id="L46">                        .orElseThrow(() -&gt; new NoSuchElementException(&quot;Datos de clínica no encontrados para id: &quot; + id));</span>
+<span class="fc" id="L47">                builder.clinicaName(clinica.getClinicaName()).address(clinica.getAddress());</span>
+<span class="fc" id="L48">            }</span>
+            case &quot;refugio&quot; -&gt; {
+<span class="fc" id="L50">                Refugio refugio = refugioRepository.findById(id)</span>
+<span class="pc" id="L51">                        .orElseThrow(() -&gt; new NoSuchElementException(&quot;Datos de refugio no encontrados para id: &quot; + id));</span>
+<span class="fc" id="L52">                builder.refugioName(refugio.getRefugioName()).adress(refugio.getAdress());</span>
+            }
+        }
+
+<span class="fc" id="L56">        return builder.build();</span>
+    }
+
+    public NombreUsuarioResponse getNombreById(UUID id) {
+<span class="fc" id="L60">        Profile profile = registerRepository.findById(id)</span>
+<span class="fc" id="L61">                .orElseThrow(() -&gt; new NoSuchElementException(&quot;Usuario no encontrado con id: &quot; + id));</span>
+
+<span class="pc bpc" id="L63" title="1 of 4 branches missed.">        String nombre = switch (profile.getUserType().toLowerCase()) {</span>
+            case &quot;persona&quot; -&gt; {
+<span class="fc" id="L65">                Persona persona = personaRepository.findById(id)</span>
+<span class="pc" id="L66">                        .orElseThrow(() -&gt; new NoSuchElementException(&quot;Datos de persona no encontrados para id: &quot; + id));</span>
+<span class="fc" id="L67">                yield persona.getName() + &quot; &quot; + persona.getLastName();</span>
+            }
+<span class="fc" id="L69">            case &quot;clinica&quot; -&gt; clinicaRepository.findById(id)</span>
+<span class="fc" id="L70">                    .map(Clinica::getClinicaName)</span>
+<span class="pc" id="L71">                    .orElseThrow(() -&gt; new NoSuchElementException(&quot;Datos de clínica no encontrados para id: &quot; + id));</span>
+<span class="fc" id="L72">            case &quot;refugio&quot; -&gt; refugioRepository.findById(id)</span>
+<span class="fc" id="L73">                    .map(Refugio::getRefugioName)</span>
+<span class="pc" id="L74">                    .orElseThrow(() -&gt; new NoSuchElementException(&quot;Datos de refugio no encontrados para id: &quot; + id));</span>
+<span class="pc" id="L75">            default -&gt; throw new NoSuchElementException(&quot;Tipo de usuario desconocido: &quot; + profile.getUserType());</span>
+        };
+
+<span class="fc" id="L78">        return NombreUsuarioResponse.builder().nombre(nombre).build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

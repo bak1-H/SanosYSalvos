@@ -1,0 +1,5 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+api-gateaway-sys-2,cl.sys.discoveryservice.apigateawaysys2.config,JwtRoleConverter,0,28,0,2,0,7,0,4,0,3
+api-gateaway-sys-2,cl.sys.discoveryservice.apigateawaysys2.config,GatewayConfig,0,59,0,0,0,25,0,5,0,5
+api-gateaway-sys-2,cl.sys.discoveryservice.apigateawaysys2.config,SecurityConfig,0,175,0,0,0,25,0,14,0,14
+api-gateaway-sys-2,cl.sys.discoveryservice.apigateawaysys2,ApiGateawaySys2Application,5,3,0,0,2,1,1,1,1,1

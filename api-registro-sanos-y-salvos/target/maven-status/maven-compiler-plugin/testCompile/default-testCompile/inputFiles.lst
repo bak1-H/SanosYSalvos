@@ -1,2 +1,10 @@
-/home/danielbeltran/new-sanys/SanosYSalvos/api-registro-sanos-y-salvos/src/test/java/cl/sys/registro/registro/RegistroApplicationTests.java
-/home/danielbeltran/new-sanys/SanosYSalvos/api-registro-sanos-y-salvos/src/test/java/cl/sys/registro/registro/service/UserQueryServiceTest.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/api-registro-sanos-y-salvos/src/test/java/cl/sys/registro/registro/RegistroApplicationTests.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/api-registro-sanos-y-salvos/src/test/java/cl/sys/registro/registro/controller/LoginControllerTest.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/api-registro-sanos-y-salvos/src/test/java/cl/sys/registro/registro/controller/RegistrationControllerTest.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/api-registro-sanos-y-salvos/src/test/java/cl/sys/registro/registro/factory/ClinicaHandlerTest.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/api-registro-sanos-y-salvos/src/test/java/cl/sys/registro/registro/factory/PersonaHandlerTest.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/api-registro-sanos-y-salvos/src/test/java/cl/sys/registro/registro/factory/RefugioHandlerTest.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/api-registro-sanos-y-salvos/src/test/java/cl/sys/registro/registro/service/AuthenticationServiceTest.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/api-registro-sanos-y-salvos/src/test/java/cl/sys/registro/registro/service/RegistrationServiceTest.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/api-registro-sanos-y-salvos/src/test/java/cl/sys/registro/registro/service/UserQueryServiceTest.java
+/home/danielbeltrn/new-sanys/SanosYSalvos/api-registro-sanos-y-salvos/src/test/java/cl/sys/registro/registro/validation/RegistrationValidatorTest.java

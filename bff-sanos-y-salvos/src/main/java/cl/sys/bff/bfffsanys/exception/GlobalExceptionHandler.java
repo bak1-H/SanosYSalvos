@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
@@ -17,11 +18,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RetryableException.class)
     public ResponseEntity<Object> handleConexionException(RetryableException ex) {
-        return ResponseEntity.status(503).body(Map.of(
-                "error", "Servicio no disponible",
-                "message", "No se pudo conectar con el servicio destino",
-                "status", 503,
-                "token", null
-        ));
+        Map<String, Object> body = new HashMap<>();
+        body.put("error", "Servicio no disponible");
+        body.put("message", "No se pudo conectar con el servicio destino");
+        body.put("status", 503);
+        body.put("token", null);
+        return ResponseEntity.status(503).body(body);
     }
 }

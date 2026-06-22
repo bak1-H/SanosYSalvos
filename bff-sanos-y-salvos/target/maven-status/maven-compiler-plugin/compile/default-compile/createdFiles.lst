@@ -23,8 +23,8 @@ cl/sys/bff/bfffsanys/model/LoginRegistroResponseDTO.class
 cl/sys/bff/bfffsanys/model/ReporteItemDTO.class
 cl/sys/bff/bfffsanys/controller/ReportesController.class
 cl/sys/bff/bfffsanys/config/JwtForwardingFeignConfig.class
-cl/sys/bff/bfffsanys/client/ReportesClient.class
 cl/sys/bff/bfffsanys/service/ReportesService.class
+cl/sys/bff/bfffsanys/client/ReportesClient.class
 cl/sys/bff/bfffsanys/model/UserDTO.class
 cl/sys/bff/bfffsanys/config/DotEnvProcessor.class
 cl/sys/bff/bfffsanys/model/NotificacionResponseDTO.class

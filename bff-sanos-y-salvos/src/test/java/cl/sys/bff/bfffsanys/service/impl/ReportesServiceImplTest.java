@@ -4,6 +4,8 @@ import cl.sys.bff.bfffsanys.client.RegistroClient;
 import cl.sys.bff.bfffsanys.client.ReportesClient;
 import cl.sys.bff.bfffsanys.model.NombreUsuarioResponseDTO;
 import cl.sys.bff.bfffsanys.model.ReporteItemDTO;
+import cl.sys.bff.bfffsanys.model.ReporteRequestDTO;
+import cl.sys.bff.bfffsanys.model.ReporteResponseDTO;
 import cl.sys.bff.bfffsanys.model.ReportesNearbyRequestDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -86,6 +88,18 @@ class ReportesServiceImplTest {
         ReporteItemDTO resultado = reportesService.obtenerPorId(7L);
 
         assertEquals("Refugio Patitas", resultado.getNombreReportante());
+    }
+
+    @Test
+    void crear_delegaEnElCliente() {
+        ReporteRequestDTO request = new ReporteRequestDTO();
+        ReporteResponseDTO expected = new ReporteResponseDTO();
+        expected.setId(1L);
+        when(reportesClient.crear(request)).thenReturn(expected);
+
+        ReporteResponseDTO response = reportesService.crear(request);
+
+        assertEquals(expected, response);
     }
 
     private ReporteItemDTO itemDe(String idUsuario) {
