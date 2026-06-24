@@ -11,12 +11,12 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
-<span class="fc" id="L14">public class DotEnvProcessor implements EnvironmentPostProcessor {</span>
+<span class="nc" id="L14">public class DotEnvProcessor implements EnvironmentPostProcessor {</span>
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-<span class="fc" id="L18">        Path envFile = Path.of(&quot;.env&quot;);</span>
-<span class="pc bpc" id="L19" title="1 of 2 branches missed.">        if (!Files.exists(envFile)) return;</span>
+<span class="nc" id="L18">        Path envFile = Path.of(&quot;.env&quot;);</span>
+<span class="nc bnc" id="L19" title="All 2 branches missed.">        if (!Files.exists(envFile)) return;</span>
 
 <span class="nc" id="L21">        Map&lt;String, Object&gt; props = new HashMap&lt;&gt;();</span>
         try {

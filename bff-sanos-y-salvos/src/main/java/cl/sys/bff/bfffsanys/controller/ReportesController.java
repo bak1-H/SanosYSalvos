@@ -8,6 +8,7 @@ import cl.sys.bff.bfffsanys.service.ReportesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,5 +40,16 @@ public class ReportesController {
     @GetMapping("/{id}")
     public ResponseEntity<ReporteItemDTO> obtenerPorId(@PathVariable Long id) {
         return ResponseEntity.ok(reportesService.obtenerPorId(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ReporteItemDTO>> listarTodos() {
+        return ResponseEntity.ok(reportesService.listarTodos());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        reportesService.eliminar(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -2,9 +2,11 @@ interface BottomNavbarProps {
   notificaciones: number;
   activeTab: 'mapa' | 'notificaciones' | 'perfil';
   onTabChange: (tab: 'mapa' | 'notificaciones' | 'perfil') => void;
+  isAdmin?: boolean;
+  onAdminClick?: () => void;
 }
 
-export function BottomNavbar({ notificaciones, activeTab, onTabChange }: BottomNavbarProps) {
+export function BottomNavbar({ notificaciones, activeTab, onTabChange, isAdmin, onAdminClick }: BottomNavbarProps) {
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 h-16 bg-white border-t border-slate-100 shadow-[0_-2px_12px_rgba(0,0,0,0.07)] flex items-center">
       <div className="w-full flex justify-around items-center px-2">
@@ -53,6 +55,18 @@ export function BottomNavbar({ notificaciones, activeTab, onTabChange }: BottomN
           </div>
           <span className="text-[10px] font-medium font-manrope">Alertas</span>
         </button>
+
+        {isAdmin && (
+          <button
+            onClick={onAdminClick}
+            className="flex flex-col items-center gap-1 px-4 py-1.5 rounded-xl text-slate-400 transition-colors"
+          >
+            <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current">
+              <path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 4c1.86 0 3.41 1.28 3.86 3H8.14C8.59 6.28 10.14 5 12 5zm0 13c-2.67 0-5-1.43-6.28-3.55.62-.88 3.28-1.95 6.28-1.95s5.66 1.07 6.28 1.95C17 17.57 14.67 19 12 19zm0-6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" />
+            </svg>
+            <span className="text-[10px] font-medium font-manrope">Admin</span>
+          </button>
+        )}
 
       </div>
     </nav>

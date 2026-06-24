@@ -6,6 +6,7 @@ import { MapaReportes } from './components/MapaReportes.tsx';
 import { BottomNavbar } from './components/BottomNavbar.tsx';
 import { PerfilView } from '../../perfilPage/view/perfilView.tsx';
 import { NotificacionesView } from '../../notificacionesPage/view/notificacionesView.tsx';
+import { tokenManager } from '../../../services/tokenManager.ts';
 
 type Tab = 'mapa' | 'notificaciones' | 'perfil';
 
@@ -21,6 +22,7 @@ export function DashboardView() {
   } = useDashboardController();
   const [activeTab, setActiveTab] = useState<Tab>('mapa');
   const navigate = useNavigate();
+  const isAdmin = tokenManager.decode()?.role === 'ADMIN';
 
   const perdidos = reportesCercanos.filter(r => r.tipoReporte === 'PERDIDO').length;
   const avistados = reportesCercanos.filter(r => r.tipoReporte === 'VISTO').length;
@@ -89,6 +91,8 @@ export function DashboardView() {
         notificaciones={notificacionesCount}
         activeTab={activeTab}
         onTabChange={setActiveTab}
+        isAdmin={isAdmin}
+        onAdminClick={() => navigate('/admin/reportes')}
       />
     </div>
   );

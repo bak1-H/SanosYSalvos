@@ -102,6 +102,27 @@ class ReportesServiceImplTest {
         assertEquals(expected, response);
     }
 
+    @Test
+    void listarTodos_enriqueceCadaReporteConSuNombre() {
+        ReporteItemDTO uno = itemDe("user-1");
+        ReporteItemDTO dos = itemDe("user-2");
+        when(reportesClient.listarTodos()).thenReturn(List.of(uno, dos));
+        when(registroClient.getNombre("user-1")).thenReturn(nombre("Daniel Beltran"));
+        when(registroClient.getNombre("user-2")).thenReturn(nombre("Clinica Sur"));
+
+        List<ReporteItemDTO> resultado = reportesService.listarTodos();
+
+        assertEquals("Daniel Beltran", resultado.get(0).getNombreReportante());
+        assertEquals("Clinica Sur", resultado.get(1).getNombreReportante());
+    }
+
+    @Test
+    void eliminar_delegaEnElCliente() {
+        reportesService.eliminar(7L);
+
+        verify(reportesClient, times(1)).eliminar(7L);
+    }
+
     private ReporteItemDTO itemDe(String idUsuario) {
         ReporteItemDTO item = new ReporteItemDTO();
         item.setIdUsuario(idUsuario);
