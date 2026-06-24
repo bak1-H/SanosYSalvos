@@ -111,7 +111,7 @@ export function MapaReportes({ reportes, userLocation }: MapaReportesProps) {
 
         return (
           <Marker key={reporte.id} position={[coords.lat, coords.lng]} icon={icon}>
-            <Popup maxWidth={260}>
+            <Popup maxWidth={260} maxHeight={360}>
               <div className="font-inter text-sm space-y-1 min-w-[200px]">
                 <div className="flex items-center gap-2 mb-2">
                   <span

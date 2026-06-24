@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: cl.sys.registro.registro.controller.LoginControllerTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.112 s -- in cl.sys.registro.registro.controller.LoginControllerTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.153 s -- in cl.sys.registro.registro.controller.LoginControllerTest
