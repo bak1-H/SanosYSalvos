@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router';
 import { MainLayout } from './context/commons/layouts/MainLayout.tsx';
 import { PrivateRoute } from './context/commons/guards/PrivateRoute.tsx';
+import { AdminRoute } from './context/commons/guards/AdminRoute.tsx';
 import { RolSelectorView } from './context/rolSelectionPage/rolSelectorView.tsx';
 import { RegisterView } from './context/registerPage/view/registerView.tsx';
 import { DashboardView } from './context/dashboardPage/view/dashboardView.tsx';
@@ -8,6 +9,7 @@ import { CrearReporteView } from './context/crearReportePage/view/crearReporteVi
 import { ReporteDetailView } from './context/reporteDetailPage/view/reporteDetailView.tsx';
 import { LoginView } from './context/loginPage/view/loginView.tsx';
 import { UnauthorizedView } from './context/unauthorizedPage/view/UnauthorizedView.tsx';
+import { AdminReportesView } from './context/adminReportesPage/view/adminReportesView.tsx';
 
 export const AppRouter = () => {
   return (
@@ -24,6 +26,9 @@ export const AppRouter = () => {
         <Route path="/dashboard" element={<DashboardView />} />
         <Route path="/crear-reporte" element={<CrearReporteView />} />
         <Route path="/reportes/:id" element={<ReporteDetailView />} />
+      </Route>
+      <Route element={<AdminRoute />}>
+        <Route path="/admin/reportes" element={<AdminReportesView />} />
       </Route>
     </Routes>
   );

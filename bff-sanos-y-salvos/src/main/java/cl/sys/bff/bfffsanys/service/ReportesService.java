@@ -11,4 +11,6 @@ public interface ReportesService {
     ReporteResponseDTO crear(ReporteRequestDTO dto);
     List<ReporteItemDTO> obtenerCercanos(ReportesNearbyRequestDTO dto);
     ReporteItemDTO obtenerPorId(Long id);
+    List<ReporteItemDTO> listarTodos();
+    void eliminar(Long id);
 }

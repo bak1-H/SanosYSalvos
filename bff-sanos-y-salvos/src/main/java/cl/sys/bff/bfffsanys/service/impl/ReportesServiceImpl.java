@@ -42,6 +42,18 @@ public class ReportesServiceImpl implements ReportesService {
         return reporte;
     }
 
+    @Override
+    public List<ReporteItemDTO> listarTodos() {
+        List<ReporteItemDTO> reportes = reportesClient.listarTodos();
+        enriquecerConNombreReportante(reportes);
+        return reportes;
+    }
+
+    @Override
+    public void eliminar(Long id) {
+        reportesClient.eliminar(id);
+    }
+
     private void enriquecerConNombreReportante(List<ReporteItemDTO> reportes) {
         Map<String, String> nombresPorUsuario = new HashMap<>();
         for (ReporteItemDTO reporte : reportes) {

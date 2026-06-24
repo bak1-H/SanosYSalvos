@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class ReportesControllerTest {
@@ -65,5 +66,24 @@ class ReportesControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(expected, response.getBody());
+    }
+
+    @Test
+    void listarTodos_retorna200ConLaListaDelServicio() {
+        ReporteItemDTO item = new ReporteItemDTO();
+        when(reportesService.listarTodos()).thenReturn(List.of(item));
+
+        ResponseEntity<List<ReporteItemDTO>> response = controller.listarTodos();
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(1, response.getBody().size());
+    }
+
+    @Test
+    void eliminar_retorna204YDelegaEnElServicio() {
+        ResponseEntity<Void> response = controller.eliminar(7L);
+
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        verify(reportesService).eliminar(7L);
     }
 }

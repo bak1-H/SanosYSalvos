@@ -42,24 +42,36 @@ public class ReportesServiceImpl implements ReportesService {
 <span class="fc" id="L42">        return reporte;</span>
     }
 
-    private void enriquecerConNombreReportante(List&lt;ReporteItemDTO&gt; reportes) {
-<span class="fc" id="L46">        Map&lt;String, String&gt; nombresPorUsuario = new HashMap&lt;&gt;();</span>
-<span class="fc bfc" id="L47" title="All 2 branches covered.">        for (ReporteItemDTO reporte : reportes) {</span>
-<span class="fc" id="L48">            String idUsuario = reporte.getIdUsuario();</span>
-<span class="fc bfc" id="L49" title="All 4 branches covered.">            if (idUsuario == null || nombresPorUsuario.containsKey(idUsuario)) {</span>
-<span class="fc" id="L50">                continue;</span>
-            }
-<span class="fc" id="L52">            nombresPorUsuario.put(idUsuario, resolverNombre(idUsuario));</span>
-<span class="fc" id="L53">        }</span>
-<span class="fc" id="L54">        reportes.forEach(reporte -&gt; reporte.setNombreReportante(nombresPorUsuario.get(reporte.getIdUsuario())));</span>
+    @Override
+    public List&lt;ReporteItemDTO&gt; listarTodos() {
+<span class="fc" id="L47">        List&lt;ReporteItemDTO&gt; reportes = reportesClient.listarTodos();</span>
+<span class="fc" id="L48">        enriquecerConNombreReportante(reportes);</span>
+<span class="fc" id="L49">        return reportes;</span>
+    }
+
+    @Override
+    public void eliminar(Long id) {
+<span class="fc" id="L54">        reportesClient.eliminar(id);</span>
 <span class="fc" id="L55">    }</span>
+
+    private void enriquecerConNombreReportante(List&lt;ReporteItemDTO&gt; reportes) {
+<span class="fc" id="L58">        Map&lt;String, String&gt; nombresPorUsuario = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        for (ReporteItemDTO reporte : reportes) {</span>
+<span class="fc" id="L60">            String idUsuario = reporte.getIdUsuario();</span>
+<span class="fc bfc" id="L61" title="All 4 branches covered.">            if (idUsuario == null || nombresPorUsuario.containsKey(idUsuario)) {</span>
+<span class="fc" id="L62">                continue;</span>
+            }
+<span class="fc" id="L64">            nombresPorUsuario.put(idUsuario, resolverNombre(idUsuario));</span>
+<span class="fc" id="L65">        }</span>
+<span class="fc" id="L66">        reportes.forEach(reporte -&gt; reporte.setNombreReportante(nombresPorUsuario.get(reporte.getIdUsuario())));</span>
+<span class="fc" id="L67">    }</span>
 
     private String resolverNombre(String idUsuario) {
         try {
-<span class="fc" id="L59">            return registroClient.getNombre(idUsuario).getNombre();</span>
-<span class="fc" id="L60">        } catch (Exception e) {</span>
-<span class="fc" id="L61">            log.warn(&quot;No se pudo resolver el nombre del usuario {}: {}&quot;, idUsuario, e.getMessage());</span>
-<span class="fc" id="L62">            return &quot;Usuario desconocido&quot;;</span>
+<span class="fc" id="L71">            return registroClient.getNombre(idUsuario).getNombre();</span>
+<span class="fc" id="L72">        } catch (Exception e) {</span>
+<span class="fc" id="L73">            log.warn(&quot;No se pudo resolver el nombre del usuario {}: {}&quot;, idUsuario, e.getMessage());</span>
+<span class="fc" id="L74">            return &quot;Usuario desconocido&quot;;</span>
         }
     }
 }

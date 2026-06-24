@@ -19,9 +19,10 @@ httpClient.interceptors.request.use((config) => {
 httpClient.interceptors.response.use(
   (res) => res,
   (error) => {
-    if (error.response?.status === 401) {
+    const isLoginRequest = error.config?.url?.includes('/api/login')
+    if (error.response?.status === 401 && !isLoginRequest) {
       tokenManager.clear()
-      window.location.href = '/login'
+      window.location.href = '/'
     }
     return Promise.reject(error)
   }

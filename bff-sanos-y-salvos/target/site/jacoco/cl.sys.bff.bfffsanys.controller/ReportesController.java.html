@@ -8,6 +8,7 @@ import cl.sys.bff.bfffsanys.service.ReportesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,19 +27,30 @@ public class ReportesController {
 
     @PostMapping(&quot;/crear&quot;)
     public ResponseEntity&lt;ReporteResponseDTO&gt; crear(@RequestBody ReporteRequestDTO request) {
-<span class="fc" id="L29">        ReporteResponseDTO response = reportesService.crear(request);</span>
-<span class="fc" id="L30">        return ResponseEntity.status(HttpStatus.CREATED).body(response);</span>
+<span class="fc" id="L30">        ReporteResponseDTO response = reportesService.crear(request);</span>
+<span class="fc" id="L31">        return ResponseEntity.status(HttpStatus.CREATED).body(response);</span>
     }
 
     @PostMapping
     public ResponseEntity&lt;List&lt;ReporteItemDTO&gt;&gt; obtenerCercanos(@RequestBody ReportesNearbyRequestDTO request) {
-<span class="fc" id="L35">        List&lt;ReporteItemDTO&gt; reportes = reportesService.obtenerCercanos(request);</span>
-<span class="fc" id="L36">        return ResponseEntity.ok(reportes);</span>
+<span class="fc" id="L36">        List&lt;ReporteItemDTO&gt; reportes = reportesService.obtenerCercanos(request);</span>
+<span class="fc" id="L37">        return ResponseEntity.ok(reportes);</span>
     }
 
     @GetMapping(&quot;/{id}&quot;)
     public ResponseEntity&lt;ReporteItemDTO&gt; obtenerPorId(@PathVariable Long id) {
-<span class="fc" id="L41">        return ResponseEntity.ok(reportesService.obtenerPorId(id));</span>
+<span class="fc" id="L42">        return ResponseEntity.ok(reportesService.obtenerPorId(id));</span>
+    }
+
+    @GetMapping
+    public ResponseEntity&lt;List&lt;ReporteItemDTO&gt;&gt; listarTodos() {
+<span class="fc" id="L47">        return ResponseEntity.ok(reportesService.listarTodos());</span>
+    }
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Void&gt; eliminar(@PathVariable Long id) {
+<span class="fc" id="L52">        reportesService.eliminar(id);</span>
+<span class="fc" id="L53">        return ResponseEntity.noContent().build();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
